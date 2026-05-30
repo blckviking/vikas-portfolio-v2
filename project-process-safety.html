@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Process Safety — Off the Page — Vikas Vasudevan</title>
+
+<!-- Primary SEO -->
+<meta name="description" content="Case study: Vikas Vasudevan launched a new Process Safety product line targeting a $100M+ addressable market, driving 40% adoption growth.">
+<meta name="author" content="Vikas Vasudevan">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://vikasvasudevan.in/project-process-safety.html">
+<meta name="theme-color" content="#c94a2b">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikas Vasudevan">
+<meta property="og:title" content="Process Safety Product Launch — Case Study by Vikas Vasudevan">
+<meta property="og:description" content="Launching a new Process Safety product line targeting a $100M+ addressable market, driving 40% adoption growth.">
+<meta property="og:url" content="https://vikasvasudevan.in/project-process-safety.html">
+<meta property="og:image" content="https://vikasvasudevan.in/og-image.png">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Process Safety Product Launch — Case Study by Vikas Vasudevan">
+<meta name="twitter:description" content="Launching a new Process Safety product line targeting a $100M+ addressable market, driving 40% adoption growth.">
+<meta name="twitter:image" content="https://vikasvasudevan.in/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23c94a2b'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23f5f2eb'%3EV%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --paper: #efe7d4;
+    --paper-2: #e6dabf;
+    --paper-3: #dccdab;
+    --ink: #1b1813;
+    --ink-soft: #2a261e;
+    --muted: #756a56;
+    --teal: #0c8f87;
+    --teal-dark: #0a6b65;
+    --teal-light: #d6ece9;
+    --hazard: #d99a1f;
+    --good: #2e7d32;
+    --bad: #b5482f;
+    --border: rgba(27,24,19,0.16);
+    --border-soft: rgba(27,24,19,0.1);
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Instrument Sans', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); cursor: none; overflow-x: hidden; }
+  ::selection { background: var(--teal); color: var(--paper); }
+
+  .cursor-dot { width: 8px; height: 8px; background: var(--teal); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+  .cursor-ring { width: 32px; height: 32px; border: 1.5px solid var(--teal); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s; opacity: 0.5; }
+  .cursor-ring.h { transform: translate(-50%,-50%) scale(2); opacity: 0.18; }
+
+  .back-link { position: fixed; top: 1.75rem; left: 2rem; z-index: 100; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; background: rgba(239,231,212,0.75); backdrop-filter: blur(3px); padding: 0.4rem 0.7rem; border: 1px solid var(--border); }
+  .back-link:hover { color: var(--teal); }
+
+  /* ── HERO — field report cover ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 8rem 4rem 4.5rem 6rem;
+    position: relative; overflow: hidden;
+    border-bottom: 2px solid var(--ink);
+    background-image:
+      linear-gradient(90deg, transparent 78px, rgba(181,72,47,0.25) 78px, rgba(181,72,47,0.25) 80px, transparent 80px),
+      repeating-linear-gradient(transparent 0 31px, rgba(27,24,19,0.05) 31px 32px);
+  }
+  .hero-meta-top {
+    position: absolute; top: 5rem; left: 6rem; right: 4rem;
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  }
+  .hero-bg-num {
+    position: absolute; bottom: -6rem; right: -2rem;
+    font-family: var(--serif); font-size: 34vw; font-weight: 700;
+    color: var(--ink); opacity: 0.04; line-height: 1; user-select: none; pointer-events: none; letter-spacing: -0.05em;
+  }
+  .stamp {
+    position: absolute; top: 8rem; right: 5rem; z-index: 2;
+    transform: rotate(-11deg);
+    border: 2.5px solid var(--teal); color: var(--teal);
+    font-family: var(--mono); font-weight: 500; font-size: 0.92rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.55rem 1.1rem; border-radius: 6px; text-align: center;
+    box-shadow: inset 0 0 0 1px rgba(12,143,135,0.3); opacity: 0.85;
+  }
+  .stamp small { display: block; font-size: 0.5rem; letter-spacing: 0.2em; opacity: 0.8; margin-top: 0.2rem; }
+
+  .hero-kicker { display: flex; align-items: center; gap: 1.25rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 1.75rem; position: relative; z-index: 1; }
+  .hero-kicker::before { content: ''; width: 36px; height: 1px; background: var(--teal-dark); display: block; }
+  .hero-headline { font-family: var(--serif); font-size: clamp(3rem, 8vw, 7.5rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; color: var(--ink); margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .hero-headline em { font-style: italic; font-weight: 300; color: var(--teal); }
+  .hero-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; z-index: 1; align-items: end; }
+  .hero-desc { font-size: 1.0625rem; line-height: 1.75; color: var(--muted); max-width: 500px; }
+  .hero-desc strong { color: var(--ink); font-weight: 600; }
+  .hero-numbers { display: flex; justify-content: flex-end; gap: 2.5rem; align-items: flex-end; flex-wrap: wrap; }
+  .hn { text-align: right; }
+  .hn-val { font-family: var(--serif); font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--ink); }
+  .hn-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 6rem 4rem; border-bottom: 1px solid var(--border-soft); }
+  .section-num { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 3rem; display: flex; align-items: center; gap: 1.5rem; }
+  .section-num::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+
+  /* ── THE OLD WAY ── */
+  .oldway-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 5rem; align-items: center; }
+  .editorial-pull { font-family: var(--serif); font-size: clamp(1.75rem, 3.4vw, 2.85rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.025em; color: var(--ink); }
+  .editorial-pull em { font-style: italic; font-weight: 300; }
+  .editorial-pull .scratch { position: relative; white-space: nowrap; }
+  .editorial-pull .scratch::after { content: ''; position: absolute; left: -2px; right: -2px; top: 54%; height: 3px; background: var(--bad); transform: rotate(-1.5deg); }
+  .editorial-pull .ink-hi { background: var(--teal-light); padding: 0 0.12em; }
+
+  .pains { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); background: var(--paper); transform: rotate(-0.6deg); box-shadow: 4px 6px 0 rgba(27,24,19,0.06); }
+  .pains-head { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1rem; }
+  .pain { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-soft); font-size: 0.9rem; color: var(--muted); }
+  .pain:last-child { border-bottom: none; }
+  .pain .x { font-family: var(--hand); font-size: 1.4rem; color: var(--bad); line-height: 1; flex-shrink: 0; }
+  .pain s { text-decoration: none; }
+
+  /* ── BEFORE / AFTER SLIDER ── */
+  .ba-intro { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+  .ba-intro h3 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .ba-intro h3 em { font-style: italic; font-weight: 300; color: var(--teal); }
+  .ba-hint { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal-dark); display: flex; align-items: center; gap: 0.5rem; }
+  .ba-hint .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: hp 1.4s ease-in-out infinite; }
+  @keyframes hp { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .ba { position: relative; height: 460px; overflow: hidden; border: 1px solid var(--border); user-select: none; box-shadow: 0 24px 60px -30px rgba(27,24,19,0.4); }
+  .ba-panel { position: absolute; inset: 0; }
+  .ba-tag { position: absolute; top: 14px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.6rem; z-index: 6; }
+  .ba-tag.l { left: 14px; background: var(--ink); color: var(--paper); }
+  .ba-tag.r { right: 14px; background: linear-gradient(135deg, #5b8cff, #22d3ee); color: #0b1226; }
+
+  /* paper side */
+  .ba-paper { background: #e7dcc2; clip-path: inset(0 calc(100% - var(--pos, 52%)) 0 0); z-index: 3; }
+  .ba-paper::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 80% at 20% 0%, rgba(120,90,40,0.06), transparent 60%), repeating-linear-gradient(transparent 0 27px, rgba(27,24,19,0.05) 27px 28px); pointer-events: none; }
+  .paper-doc { padding: 2.5rem 2.25rem; height: 100%; transform: rotate(-0.5deg); position: relative; }
+  .paper-stamp { position: absolute; top: 1.5rem; right: 1.5rem; transform: rotate(8deg); border: 2px solid var(--bad); color: var(--bad); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.5rem; opacity: 0.7; }
+  .paper-h { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 0.6rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; }
+  .paper-row { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px dotted rgba(27,24,19,0.25); }
+  .paper-row .pl { font-size: 0.85rem; color: var(--ink-soft); flex: 1; }
+  .paper-row .ph { font-family: var(--hand); font-size: 1.35rem; color: #2f4a8a; line-height: 1; }
+  .paper-row .ph.red { color: var(--bad); }
+  .paper-note { font-family: var(--hand); font-size: 1.5rem; color: #2f4a8a; margin-top: 1.25rem; line-height: 1.2; transform: rotate(-1.5deg); }
+  .coffee { position: absolute; bottom: 3.5rem; left: 2rem; width: 70px; height: 70px; border-radius: 50%; border: 7px solid rgba(120,80,30,0.16); opacity: 0.8; }
+
+  /* digital side (base) — modern app dashboard */
+  .ba-digital {
+    background:
+      radial-gradient(130% 110% at 0% 0%, #1b2750 0%, #111a36 48%, #0b1226 100%);
+    color: #eaeefb; z-index: 1;
+    --blue: #5b8cff; --cyan: #22d3ee; --emerald: #34d399; --violet: #a78bfa;
+  }
+  .digi { padding: 1.5rem 1.75rem; height: 100%; display: flex; flex-direction: column; gap: 0.7rem; position: relative; }
+  .digi::before { content:''; position:absolute; inset:0; background-image: linear-gradient(rgba(91,140,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(91,140,255,0.07) 1px, transparent 1px); background-size: 26px 26px; mask-image: radial-gradient(120% 90% at 30% 0%, #000, transparent 75%); }
+  .digi > * { position: relative; z-index: 1; }
+  .digi-bar { display: flex; align-items: center; justify-content: space-between; }
+  .digi-title { font-family: var(--sans); font-weight: 600; font-size: 0.98rem; display: flex; align-items: center; gap: 0.55rem; letter-spacing: -0.01em; }
+  .digi-title .ic { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--blue), var(--cyan)); color: #0b1226; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(91,140,255,0.45); }
+  .digi-sync { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--emerald); display: flex; align-items: center; gap: 0.4rem; background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3); padding: 0.28rem 0.6rem; border-radius: 999px; }
+  .digi-sync .d { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald); animation: hp 1.6s ease-in-out infinite; }
+  .digi-sub { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(234,238,251,0.4); margin: -0.1rem 0 0.2rem; }
+  .digi-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; font-size: 0.85rem; transition: background 0.2s; }
+  .digi-row .chk { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--emerald), #10b981); color: #07241a; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; box-shadow: 0 2px 8px rgba(52,211,153,0.4); }
+  .digi-row .lbl { flex: 1; color: rgba(234,238,251,0.92); }
+  .digi-row .ts { font-family: var(--mono); font-size: 0.6rem; color: rgba(234,238,251,0.4); }
+  .digi-ai { margin-top: auto; background: linear-gradient(135deg, rgba(91,140,255,0.18), rgba(167,139,250,0.1)); border: 1px solid rgba(91,140,255,0.5); border-radius: 12px; padding: 0.95rem 1rem; box-shadow: 0 8px 30px -12px rgba(91,140,255,0.55); }
+  .digi-ai-top { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.5rem; }
+  .ai-badge { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; font-weight: 500; color: #0b1226; background: linear-gradient(135deg, var(--blue), var(--cyan)); padding: 0.18rem 0.45rem; border-radius: 5px; }
+  .digi-ai-title { font-family: var(--sans); font-weight: 600; font-size: 0.82rem; color: var(--cyan); }
+  .ai-spark { margin-left: auto; }
+  .digi-ai p { font-size: 0.82rem; line-height: 1.55; color: rgba(234,238,251,0.85); }
+  .digi-ai strong { color: #fff; font-weight: 600; }
+
+  .ba-divider { position: absolute; top: 0; bottom: 0; left: var(--pos, 52%); width: 2px; background: linear-gradient(to bottom, #5b8cff, #22d3ee); transform: translateX(-50%); z-index: 5; box-shadow: 0 0 14px rgba(91,140,255,0.7); }
+  .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #5b8cff, #22d3ee); color: #0b1226; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 6px 20px rgba(91,140,255,0.5), 0 0 0 4px rgba(255,255,255,0.5); cursor: none; }
+
+  /* ── AI SECTION ── */
+  .ai-section { background: var(--ink); color: var(--paper); }
+  .ai-section .section-num { color: rgba(12,143,135,0.8); }
+  .ai-section .section-num::after { background: rgba(245,242,235,0.12); }
+  .ai-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start; }
+  .ai-lead h3 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+  .ai-lead h3 em { font-style: italic; font-weight: 300; color: var(--teal); }
+  .ai-lead p { font-size: 0.95rem; line-height: 1.8; color: rgba(245,242,235,0.55); max-width: 420px; }
+  .ai-caps { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(245,242,235,0.12); border: 1px solid rgba(245,242,235,0.12); margin-bottom: 1.5rem; }
+  .ai-cap { background: var(--ink); padding: 1.5rem; }
+  .ai-cap .ci { font-family: var(--mono); color: var(--teal); font-size: 0.9rem; margin-bottom: 0.75rem; }
+  .ai-cap h4 { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .ai-cap p { font-size: 0.82rem; line-height: 1.6; color: rgba(245,242,235,0.5); }
+  .ai-ticker { background: #0c1413; border: 1px solid rgba(12,143,135,0.4); border-radius: 8px; overflow: hidden; }
+  .ai-ticker-bar { background: rgba(12,143,135,0.12); padding: 0.6rem 1rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); display: flex; align-items: center; gap: 0.5rem; }
+  .ai-ticker-bar .d { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: hp 1.4s ease-in-out infinite; }
+  .ai-ticker-body { padding: 1rem; font-family: var(--mono); font-size: 0.78rem; min-height: 96px; display: flex; flex-direction: column; gap: 0.55rem; justify-content: center; }
+  .ai-line { display: flex; gap: 0.6rem; align-items: center; opacity: 0; transform: translateY(6px); transition: all 0.4s; color: rgba(245,242,235,0.85); }
+  .ai-line.show { opacity: 1; transform: none; }
+  .ai-line .tk { color: var(--teal); } .ai-line .warn { color: var(--hazard); } .ai-line .ok { color: var(--good); }
+
+  /* ── BUILD STEPS ── */
+  .build-intro { font-family: var(--serif); font-size: clamp(1.4rem,2.6vw,2rem); font-weight: 300; font-style: italic; line-height: 1.35; color: var(--ink); max-width: 720px; margin-bottom: 3rem; }
+  .build-intro strong { font-style: normal; font-weight: 700; color: var(--teal-dark); }
+  .process-track { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .process-step { padding: 2rem 1.5rem; border-right: 1px solid var(--border-soft); position: relative; }
+  .process-step:last-child { border-right: none; }
+  .process-step::before { content: attr(data-num); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 1rem; display: block; }
+  .ps-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; }
+  .ps-body { font-size: 0.8125rem; line-height: 1.65; color: var(--muted); }
+  .ps-outcome { margin-top: 1rem; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--teal-dark); text-transform: uppercase; }
+
+  /* ── TAM ── */
+  .tam-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .tam-funnel { display: flex; flex-direction: column; gap: 1.6rem; }
+  .tam-tier-head { display: flex; justify-content: flex-start; align-items: baseline; gap: 0.7rem; margin-bottom: 0.55rem; flex-wrap: wrap; }
+  .tam-tier-name { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .tam-tier-name::after { content: '·'; margin-left: 0.7rem; color: var(--border-strong); }
+  .tam-tier-val { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; color: var(--teal-dark); line-height: 1; white-space: nowrap; }
+  .tam-tier-bar { height: 30px; border-radius: 6px; transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .fade-up.v .tam-tier-bar { transform: scaleX(1); }
+  .tam-tier.t1 .tam-tier-bar { background: rgba(12,143,135,0.18); border: 1px solid rgba(12,143,135,0.35); }
+  .tam-tier.t2 .tam-tier-bar { background: rgba(12,143,135,0.4); transition-delay: 0.15s; }
+  .tam-tier.t3 .tam-tier-bar { background: var(--teal); box-shadow: 0 6px 20px -6px rgba(12,143,135,0.6); transition-delay: 0.3s; }
+  .tam-tier.t3 .tam-tier-val { font-size: 1.5rem; color: var(--teal); }
+  .tam-text h3 { font-family: var(--serif); font-size: 2rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+  .tam-text h3 em { font-style: italic; font-weight: 300; color: var(--teal); }
+  .tam-text p { font-size: 0.9375rem; line-height: 1.8; color: var(--muted); margin-bottom: 1rem; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .outcome-block { background: var(--paper); padding: 3rem; }
+  .outcome-block.dark { background: var(--ink); color: var(--paper); }
+  .ob-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .outcome-block.dark .ob-label { color: rgba(245,242,235,0.4); }
+  .ob-stat { font-family: var(--serif); font-size: 4.5rem; font-weight: 700; letter-spacing: -0.04em; color: var(--teal-dark); line-height: 1; }
+  .outcome-block.dark .ob-stat { color: var(--teal); }
+  .ob-name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0.75rem 0 1rem; }
+  .outcome-block.dark .ob-name { color: rgba(245,242,235,0.4); }
+  .ob-context { font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
+  .outcome-block.dark .ob-context { color: rgba(245,242,235,0.6); }
+
+  .proj-footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
+  .proj-footer-copy { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .proj-footer a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal-dark); text-decoration: none; }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.v { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero { padding: 7rem 1.5rem 3.5rem; background-image: repeating-linear-gradient(transparent 0 31px, rgba(27,24,19,0.05) 31px 32px); }
+    .hero-meta-top { left: 1.5rem; right: 1.5rem; }
+    .stamp { top: 6rem; right: 1.5rem; }
+    .hero-bottom, .oldway-grid, .ai-grid, .tam-visual, .outcomes-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .ai-caps { grid-template-columns: 1fr; }
+    .process-track { grid-template-columns: 1fr 1fr; }
+    .section { padding: 4rem 1.5rem; }
+    .ba { height: 520px; }
+  }
+  @media (max-width: 640px) {
+    .back-link { top: 1.25rem; left: 1.25rem; }
+    .hero { padding: 7.5rem 1.25rem 3rem; min-height: auto; }
+    .hero-meta-top { top: 1.5rem; left: 1.25rem; right: 1.25rem; flex-direction: column; gap: 0.2rem; }
+    .stamp { top: 4.25rem; right: 1.25rem; transform: rotate(-8deg); font-size: 0.75rem; padding: 0.35rem 0.75rem; }
+    .hero-headline { font-size: clamp(2.4rem, 11vw, 3.6rem); margin-bottom: 1.75rem; }
+    .hero-numbers { justify-content: flex-start; gap: 1.75rem; }
+    .hn { text-align: left; }
+    .hn-val { font-size: 2rem; }
+    .section { padding: 3.25rem 1.25rem; }
+    .section-num { margin-bottom: 2rem; }
+    .oldway-grid { gap: 2.5rem; }
+    .process-track { grid-template-columns: 1fr; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--border-soft); }
+    .process-step:last-child { border-bottom: none; }
+    .ba { height: 470px; }
+    .paper-doc, .digi { padding: 1.5rem 1.25rem; }
+    .outcome-block { padding: 2rem 1.5rem; }
+    .ob-stat { font-size: 3rem; }
+    .ai-cap { padding: 1.25rem; }
+    .proj-footer { padding: 2.5rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cd"></div>
+<div class="cursor-ring" id="cr"></div>
+<a href="index.html" class="back-link">← Back</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-meta-top">
+    <span>Field Report · No. 03</span>
+    <span>Process Safety · South East Asia</span>
+  </div>
+  <div class="hero-bg-num">03</div>
+  <div class="stamp">Digitised<small>SC · 2023</small></div>
+
+  <div class="hero-kicker">Project 03 · Safety Connect · 2023</div>
+  <h1 class="hero-headline">
+    Off the page,<br>
+    into the <em>cloud.</em>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Across South East Asia, industrial process safety still runs on <strong>pen, paper, and binders</strong>. I built the platform that digitised it — with an <strong>AI that runs the inspection for you</strong> — taking it from <strong>0 to 100</strong> and unlocking a $100M+ market.</p>
+    <div class="hero-numbers">
+      <div class="hn"><div class="hn-val">$100M+</div><div class="hn-label">TAM Unlocked</div></div>
+      <div class="hn"><div class="hn-val">$2M+</div><div class="hn-label">ARR Pipeline</div></div>
+      <div class="hn"><div class="hn-val">0→100</div><div class="hn-label">Built &amp; Owned by Me</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE OLD WAY -->
+<section class="section fade-up">
+  <div class="section-num">01 · The Old Way</div>
+  <div class="oldway-grid">
+    <div class="editorial-pull">
+      In most SEA facilities, a safety inspection means a <span class="scratch">clipboard</span>, a pen, and a binder no one can find. We turned that into <span class="ink-hi">a system that runs itself.</span>
+    </div>
+    <div class="pains">
+      <div class="pains-head">Daily Safety Log — the analog reality</div>
+      <div class="pain"><span class="x">✗</span><s>Forms filed days late, if at all</s></div>
+      <div class="pain"><span class="x">✗</span><s>Pages lost, illegible, or coffee-stained</s></div>
+      <div class="pain"><span class="x">✗</span><s>No real-time view of site risk</s></div>
+      <div class="pain"><span class="x">✗</span><s>Audits = weeks of digging through binders</s></div>
+      <div class="pain"><span class="x">✗</span><s>Deviations spotted only after they escalate</s></div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER SLIDER -->
+<section class="section fade-up">
+  <div class="section-num">02 · The Transformation</div>
+  <div class="ba-intro">
+    <h3>The same inspection,<br><em>two different worlds.</em></h3>
+    <span class="ba-hint"><span class="pulse"></span> Drag the handle ⇄ to digitise</span>
+  </div>
+  <div class="ba" id="ba" style="--pos:52%">
+    <span class="ba-tag l">Pen &amp; Paper</span>
+    <span class="ba-tag r">AI Platform</span>
+
+    <!-- DIGITAL (base layer) -->
+    <div class="ba-panel ba-digital">
+      <div class="digi">
+        <div class="digi-bar">
+          <span class="digi-title"><span class="ic">◆</span> Process Safety</span>
+          <span class="digi-sync"><span class="d"></span> Live · Synced</span>
+        </div>
+        <div class="digi-sub">Boiler House B2 · 4 of 4 checks complete</div>
+        <div class="digi-row"><span class="chk">✓</span><span class="lbl">Pressure valve PV-203 — in range</span><span class="ts">09:02</span></div>
+        <div class="digi-row"><span class="chk">✓</span><span class="lbl">Relief system test — passed</span><span class="ts">09:04</span></div>
+        <div class="digi-row"><span class="chk">✓</span><span class="lbl">Gas detector calibration — logged</span><span class="ts">09:06</span></div>
+        <div class="digi-row"><span class="chk">✓</span><span class="lbl">Operator sign-off — captured</span><span class="ts">09:07</span></div>
+        <div class="digi-ai">
+          <div class="digi-ai-top">
+            <span class="ai-badge">AI</span>
+            <span class="digi-ai-title">Predictive alert</span>
+            <span class="ai-spark">
+              <svg width="76" height="28" viewBox="0 0 76 28" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="9" x2="76" y2="9" stroke="rgba(248,113,113,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+                <polyline points="2,24 14,22 26,21 38,18 50,16 56,14" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="56,14 64,11 72,8" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round"/>
+                <circle cx="72" cy="8" r="2.5" fill="#f87171"/>
+              </svg>
+            </span>
+          </div>
+          <p>PV-203 trending <strong>+4%</strong> over 7 days — breach predicted in <strong>~6 days</strong>. Work order <strong>#4471</strong> auto-created &amp; assigned.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAPER (clipped overlay) -->
+    <div class="ba-panel ba-paper">
+      <div class="paper-doc">
+        <div class="paper-stamp">Filed late</div>
+        <div class="paper-h"><span>Daily Safety Log — Sheet 1/2</span><span>14 MAR</span></div>
+        <div class="paper-row"><span class="pl">Pressure valve PV-203</span><span class="ph">ok?</span></div>
+        <div class="paper-row"><span class="pl">Relief system test</span><span class="ph">✓</span></div>
+        <div class="paper-row"><span class="pl">Gas detector calibration</span><span class="ph red">—</span></div>
+        <div class="paper-row"><span class="pl">Operator sign-off</span><span class="ph">VK</span></div>
+        <div class="paper-note">page 2 missing —<br>check w/ site team?</div>
+        <div class="coffee"></div>
+      </div>
+    </div>
+
+    <div class="ba-divider" id="baDivider"><div class="ba-handle">⇄</div></div>
+  </div>
+</section>
+
+<!-- THE AI -->
+<section class="section ai-section fade-up">
+  <div class="section-num">03 · The AI That Runs It</div>
+  <div class="ai-grid">
+    <div class="ai-lead">
+      <h3>You don't fill the form.<br><em>The AI does.</em></h3>
+      <p>We didn't just digitise the paperwork — we put an AI in charge of it. Field teams capture data by photo or voice; the AI handles classification, anomaly detection, corrective actions, and compliance, end to end.</p>
+    </div>
+    <div>
+      <div class="ai-caps">
+        <div class="ai-cap"><div class="ci">⌁</div><h4>Zero-form capture</h4><p>Inspections logged by photo or voice — no clipboards, no manual entry.</p></div>
+        <div class="ai-cap"><div class="ci">◎</div><h4>Predictive anomaly detection</h4><p>The AI watches sensor trends and flags deviations before they breach.</p></div>
+        <div class="ai-cap"><div class="ci">⇄</div><h4>Auto corrective actions</h4><p>Work orders created, assigned, and tracked to closure automatically.</p></div>
+        <div class="ai-cap"><div class="ci">▤</div><h4>Always audit-ready</h4><p>Compliance reports generated continuously — audits in minutes, not weeks.</p></div>
+      </div>
+      <div class="ai-ticker">
+        <div class="ai-ticker-bar"><span class="d"></span> AI Inspector · Live activity</div>
+        <div class="ai-ticker-body" id="aiTicker"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT 0 TO 100 -->
+<section class="section fade-up" style="padding-left:0; padding-right:0;">
+  <div style="padding: 0 4rem 0;">
+    <div class="section-num" style="margin-left:0;">04 · Built 0 → 100</div>
+    <p class="build-intro">I owned this vertical <strong>end to end</strong> — from the first customer signal to first enterprise revenue. Discovery, validation, the business case, MVP scope, delivery, and launch.</p>
+  </div>
+  <div class="process-track">
+    <div class="process-step" data-num="Step 01">
+      <div class="ps-title">Identified the Signal</div>
+      <div class="ps-body">Three enterprise clients independently asked about industrial monitoring. I documented it, ran 12 follow-up interviews, and mapped the overlap between our safety capabilities and their industrial needs.</div>
+      <div class="ps-outcome">→ Opportunity confirmed</div>
+    </div>
+    <div class="process-step" data-num="Step 02">
+      <div class="ps-title">Sized the Market</div>
+      <div class="ps-body">Built a bottom-up TAM model: industrial facilities across South East Asia, average contract value benchmarked against competitors, and a realistic penetration scenario from our existing relationships.</div>
+      <div class="ps-outcome">→ $100M+ TAM validated</div>
+    </div>
+    <div class="process-step" data-num="Step 03">
+      <div class="ps-title">Built the Business Case</div>
+      <div class="ps-body">Presented a full case to leadership: market size, competitive landscape, investment, time-to-revenue, and risk. Won buy-in by showing how much of the platform could be reused vs. built net-new.</div>
+      <div class="ps-outcome">→ Executive sign-off</div>
+    </div>
+    <div class="process-step" data-num="Step 04">
+      <div class="ps-title">Scoped the MVP + AI</div>
+      <div class="ps-body">Ruthlessly scoped to equipment health monitoring, process-deviation alerts, and AI-assisted compliance — three things industrial clients needed immediately, achievable in a 3-month build sprint.</div>
+      <div class="ps-outcome">→ MVP defined</div>
+    </div>
+    <div class="process-step" data-num="Step 05">
+      <div class="ps-title">Shipped &amp; Iterated</div>
+      <div class="ps-body">Led delivery with a dedicated squad. Launched to 3 pilot clients, gathered structured feedback every 2 weeks, and shipped 4 iteration cycles before GA. First enterprise revenue within 6 months.</div>
+      <div class="ps-outcome">→ $2M+ ARR pipeline</div>
+    </div>
+  </div>
+</section>
+
+<!-- TAM -->
+<section class="section fade-up">
+  <div class="section-num">05 · The Market Opportunity</div>
+  <div class="tam-visual">
+    <div class="tam-funnel">
+      <div class="tam-tier t1">
+        <div class="tam-tier-head"><span class="tam-tier-name">Total Industrial Safety Market · SEA</span><span class="tam-tier-val">Large &amp; underserved</span></div>
+        <div class="tam-tier-bar" style="width:100%"></div>
+      </div>
+      <div class="tam-tier t2">
+        <div class="tam-tier-head"><span class="tam-tier-name">Serviceable with our platform</span><span class="tam-tier-val">~70% reuse</span></div>
+        <div class="tam-tier-bar" style="width:66%"></div>
+      </div>
+      <div class="tam-tier t3">
+        <div class="tam-tier-head"><span class="tam-tier-name">Our addressable TAM</span><span class="tam-tier-val">$100M+</span></div>
+        <div class="tam-tier-bar" style="width:38%"></div>
+      </div>
+    </div>
+    <div class="tam-text">
+      <h3>The same platform.<br><em>A whole new world.</em></h3>
+      <p>Industrial process safety across SEA is underserved and overwhelmingly manual. Incumbents sell bloated on-premise systems. We offered a modern, cloud-native, mobile-first, AI-run alternative.</p>
+      <p>Our existing telematics infrastructure, alert engine, and compliance module covered ~70% of what industrial clients needed out of the box. The remaining 30% was net-new: equipment-specific sensor ingestion, the AI layer, and industrial compliance templates.</p>
+      <p>Once we saw the reuse ratio, the business case wrote itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="section fade-up" style="padding: 0;">
+  <div class="outcomes-grid">
+    <div class="outcome-block">
+      <div class="ob-label">Outcome 01</div>
+      <div class="ob-stat">$100M+</div>
+      <div class="ob-name">Total Addressable Market</div>
+      <div class="ob-context">From a single road-safety vertical to a multi-vertical platform. The expansion gave the company a brand-new growth story for investors and enterprise clients alike.</div>
+    </div>
+    <div class="outcome-block dark">
+      <div class="ob-label">Outcome 02</div>
+      <div class="ob-stat">$2M+</div>
+      <div class="ob-name">ARR Pipeline Generated</div>
+      <div class="ob-context">The Process Safety vertical fed the ARR pipeline directly — through feature-led upsell to existing clients and new enterprise wins in industrial markets.</div>
+    </div>
+    <div class="outcome-block dark">
+      <div class="ob-label">Outcome 03</div>
+      <div class="ob-stat">32</div>
+      <div class="ob-name">Enterprise Clients — Expansion Targets</div>
+      <div class="ob-context">Every existing road-safety client became a potential expansion opportunity. The cross-sell motion was natural: they already trusted the platform for one high-stakes use case.</div>
+    </div>
+    <div class="outcome-block">
+      <div class="ob-label">Outcome 04</div>
+      <div class="ob-stat">6mo</div>
+      <div class="ob-name">Zero to First Enterprise Revenue</div>
+      <div class="ob-context">From signed-off business case to first paying Process Safety customer in under 6 months — via tight MVP scoping, a pilot-first approach, and aggressive iteration.</div>
+    </div>
+  </div>
+</section>
+
+<div class="proj-footer">
+  <span class="proj-footer-copy">Vikas Vasudevan · Safety Connect · 2023</span>
+  <a href="index.html">← Back to all work</a>
+</div>
+
+<script>
+  /* ── custom cursor ── */
+  const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a, .ba-handle').forEach(el=>{el.addEventListener('mouseenter',()=>cr.classList.add('h'));el.addEventListener('mouseleave',()=>cr.classList.remove('h'));});
+
+  /* ── reveal ── */
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  /* ── before/after slider ── */
+  const ba=document.getElementById('ba');
+  let dragging=false;
+  function setPos(clientX){
+    const r=ba.getBoundingClientRect();
+    let p=((clientX-r.left)/r.width)*100;
+    p=Math.max(4,Math.min(96,p));
+    ba.style.setProperty('--pos',p+'%');
+  }
+  ba.addEventListener('pointerdown',e=>{dragging=true; ba.setPointerCapture(e.pointerId); setPos(e.clientX);});
+  ba.addEventListener('pointermove',e=>{ if(dragging) setPos(e.clientX); });
+  ba.addEventListener('pointerup',()=>dragging=false);
+  ba.addEventListener('pointercancel',()=>dragging=false);
+  // gentle auto-nudge once in view to hint interactivity
+  let nudged=false;
+  const baObs=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting && !nudged){ nudged=true;
+    let t=0; const id=setInterval(()=>{ t+=1; const p=52+Math.sin(t/3)*10; ba.style.setProperty('--pos',p+'%'); if(t>=9){ clearInterval(id); ba.style.setProperty('--pos','52%'); } },70);
+  }}),{threshold:0.5});
+  baObs.observe(ba);
+
+  /* ── AI activity ticker ── */
+  const aiTicker=document.getElementById('aiTicker');
+  const aiLines=[
+    '<span class="tk">⚡</span> Analysing 1,204 sensor readings across 6 sites…',
+    '<span class="warn">⚠</span> Deviation detected — Boiler B2 temp +6% vs baseline',
+    '<span class="ok">✓</span> Work order #4472 dispatched to site team',
+    '<span class="tk">◎</span> PV-203 flagged — predicted breach in ~6 days',
+    '<span class="ok">✓</span> Compliance report updated for Q1 audit',
+    '<span class="tk">⌁</span> 18 inspections captured by photo &amp; voice today',
+  ];
+  let aiIdx=0;
+  function pushAi(){
+    const line=document.createElement('div'); line.className='ai-line'; line.innerHTML=aiLines[aiIdx];
+    aiTicker.appendChild(line);
+    requestAnimationFrame(()=>line.classList.add('show'));
+    while(aiTicker.children.length>3) aiTicker.removeChild(aiTicker.firstChild);
+    aiIdx=(aiIdx+1)%aiLines.length;
+  }
+  pushAi(); pushAi();
+  setInterval(pushAi, 2400);
+</script>
+</body>
+</html>

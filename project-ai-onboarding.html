@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Onboarding Bot — Vikas Vasudevan</title>
+
+<!-- Primary SEO -->
+<meta name="description" content="Case study: how Vikas Vasudevan designed an MCP server and LLM-powered onboarding bot that turned a 2-week manual process into a self-serve workflow.">
+<meta name="author" content="Vikas Vasudevan">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://vikasvasudevan.in/project-ai-onboarding.html">
+<meta name="theme-color" content="#00e676">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikas Vasudevan">
+<meta property="og:title" content="AI Onboarding Bot — Case Study by Vikas Vasudevan">
+<meta property="og:description" content="How an MCP server and LLM-powered onboarding bot turned a 2-week manual process into a self-serve workflow.">
+<meta property="og:url" content="https://vikasvasudevan.in/project-ai-onboarding.html">
+<meta property="og:image" content="https://vikasvasudevan.in/og-image.png">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Onboarding Bot — Case Study by Vikas Vasudevan">
+<meta name="twitter:description" content="How an MCP server and LLM-powered onboarding bot turned a 2-week manual process into a self-serve workflow.">
+<meta name="twitter:image" content="https://vikasvasudevan.in/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23c94a2b'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23f5f2eb'%3EV%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0f0d;
+    --bg2: #0f1612;
+    --bg3: #121b15;
+    --green: #00e676;
+    --green-soft: #5cffb0;
+    --green-dim: #00e67622;
+    --green-mid: #00e67655;
+    --green-glow: rgba(0,230,118,0.35);
+    --amber: #ffb74d;
+    --paper: #f5f2eb;
+    --muted: #4a5e50;
+    --line: #1a2a1e;
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Instrument Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(900px circle at 12% -5%, rgba(0,230,118,0.10), transparent 45%),
+      radial-gradient(1100px circle at 100% 8%, rgba(0,230,118,0.06), transparent 40%),
+      radial-gradient(800px circle at 50% 120%, rgba(0,230,118,0.05), transparent 50%);
+    background-attachment: fixed;
+    color: var(--paper); font-family: var(--sans); cursor: none; overflow-x: hidden;
+  }
+  ::selection { background: var(--green); color: var(--bg); }
+
+  .cursor-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); box-shadow: 0 0 12px var(--green-glow); }
+  .cursor-ring { width: 32px; height: 32px; border: 1px solid var(--green); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; opacity: 0.5; }
+  .cursor-ring.h { transform: translate(-50%,-50%) scale(2); opacity: 0.15; }
+
+  /* Back link */
+  .back-link {
+    position: fixed; top: 2rem; left: 2rem; z-index: 100;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 3.5rem;
+    align-items: end;
+    padding: 8.5rem 4rem 3.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-main { position: relative; z-index: 1; }
+  .hero-side { position: relative; z-index: 1; display: flex; justify-content: flex-end; }
+  /* animated grid bg */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,230,118,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,230,118,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridPan 20s linear infinite;
+  }
+  @keyframes gridPan { from { background-position: 0 0; } to { background-position: 0 48px; } }
+
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem; position: relative; z-index: 1;
+  }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--green); display: block; }
+  .blink { animation: blink 1.1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-title {
+    font-family: var(--serif); font-size: clamp(2.25rem, 4.5vw, 4rem); font-weight: 700;
+    line-height: 1; letter-spacing: -0.03em; color: var(--paper);
+    margin-bottom: 1.5rem; position: relative; z-index: 1; max-width: 680px;
+  }
+  .hero-title em {
+    font-style: italic; font-weight: 300;
+    background: linear-gradient(120deg, var(--green-soft), var(--green));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 40px var(--green-glow);
+  }
+
+  .hero-desc {
+    font-size: 0.95rem; line-height: 1.75; color: rgba(245,242,235,0.55);
+    max-width: 540px; position: relative; z-index: 1;
+  }
+  .hero-kpis {
+    display: flex; flex-direction: column; gap: 1.6rem; flex-shrink: 0;
+  }
+  .kpi { text-align: right; }
+  .kpi-val { font-family: var(--serif); font-size: 2.5rem; font-weight: 700; color: var(--green); line-height: 1; }
+  .kpi-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+
+  /* SECTIONS */
+  .section { padding: 6rem 4rem; border-bottom: 1px solid #1a2a1e; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--green); opacity: 0.7;
+    margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #1a2a1e; }
+
+  /* TERMINAL BLOCK */
+  .terminal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .terminal {
+    background: #070c09;
+    border: 1px solid #1a2a1e;
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 0.825rem;
+    line-height: 1.8;
+  }
+  .terminal-bar {
+    background: #0f1a13;
+    padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid #1a2a1e;
+  }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-dot.r { background: #ff5f57; }
+  .t-dot.y { background: #febc2e; }
+  .t-dot.g { background: #28c840; }
+  .t-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); margin-left: 0.5rem; }
+  .terminal-body { padding: 1.5rem; }
+  .t-comment { color: var(--muted); }
+  .t-cmd { color: var(--paper); }
+  .t-out { color: var(--green); }
+  .t-warn { color: #ffb74d; }
+  .t-space { display: block; height: 0.6rem; }
+
+  .terminal-desc { display: flex; flex-direction: column; justify-content: center; gap: 2rem; }
+  .terminal-desc h3 { font-family: var(--serif); font-size: 1.875rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .terminal-desc h3 em { font-style: italic; font-weight: 300; color: var(--green); }
+  .terminal-desc p { font-size: 0.9375rem; line-height: 1.8; color: rgba(245,242,235,0.6); }
+
+  /* FLOW DIAGRAM */
+  .flow { display: flex; flex-direction: column; gap: 0; }
+  .flow-step {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 1.5rem; align-items: start;
+    padding: 2rem 0;
+    border-bottom: 1px solid #1a2a1e;
+  }
+  .flow-step:first-child { border-top: 1px solid #1a2a1e; }
+  .flow-num {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--green); opacity: 0.5; padding-top: 0.3rem; text-align: center;
+    position: relative;
+  }
+  .flow-num::after {
+    content: '';
+    position: absolute; top: calc(100% + 0.5rem); left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: calc(100% + 2rem);
+    background: linear-gradient(to bottom, var(--green-mid), transparent);
+    display: block;
+  }
+  .flow-step:last-child .flow-num::after { display: none; }
+  .flow-content h4 { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  .flow-content p { font-size: 0.9rem; line-height: 1.7; color: rgba(245,242,235,0.55); }
+  .flow-content .state-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.3rem 0.75rem;
+    border: 1px solid var(--green-mid); color: var(--green);
+    margin-top: 0.75rem;
+  }
+  .state-badge.old { border-color: rgba(255,87,34,0.4); color: #ff8a65; }
+  .state-badge.new { border-color: var(--green-mid); color: var(--green); }
+
+  /* METRICS GRID */
+  .metrics-showcase {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: #1a2a1e;
+    border: 1px solid #1a2a1e;
+  }
+  .metric-block {
+    background: var(--bg); padding: 3rem 2rem;
+    display: flex; flex-direction: column;
+    transition: background 0.25s;
+  }
+  .metric-block:hover { background: var(--bg2); }
+  .metric-big { font-family: var(--serif); font-size: 4rem; font-weight: 700; line-height: 1; color: var(--green); letter-spacing: -0.03em; }
+  .metric-name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,235,0.7); margin-top: 0.75rem; margin-bottom: 1rem; }
+  .metric-context { font-size: 0.875rem; line-height: 1.6; color: rgba(245,242,235,0.7); }
+
+  /* TECH STACK */
+  .tech-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .tech-pill {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.6rem 1.25rem;
+    border: 1px solid #1a2a1e; color: rgba(245,242,235,0.78);
+    transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .tech-pill::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--green-dim); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s;
+  }
+  .tech-pill:hover { color: var(--green); border-color: var(--green-mid); }
+  .tech-pill:hover::before { transform: scaleX(1); }
+  .tech-pill span { position: relative; z-index: 1; }
+
+  /* FOOTER */
+  .proj-footer {
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .proj-footer-copy { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .proj-footer a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); text-decoration: none; }
+
+  /* ── CHAT BOT SPINE ── */
+  .bot-section { padding: 4rem 4rem 6rem; border-bottom: 1px solid var(--line); position: relative; }
+  .bot-intro { max-width: 560px; margin-bottom: 2.5rem; }
+  .bot-intro h2 {
+    font-family: var(--serif); font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .bot-intro h2 em { font-style: italic; font-weight: 300; color: var(--green); }
+  .bot-intro p { font-size: 0.95rem; line-height: 1.75; color: rgba(245,242,235,0.55); }
+
+  .chat-shell {
+    max-width: 600px; margin: 0 auto;
+    background: linear-gradient(180deg, rgba(18,27,21,0.9), rgba(10,15,13,0.9));
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,230,118,0.05), 0 0 60px -30px var(--green-glow);
+    backdrop-filter: blur(8px);
+  }
+  .chat-header {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(0,230,118,0.03);
+  }
+  .chat-avatar {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 30% 30%, var(--green-soft), var(--green) 60%, #00a152);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bg); font-family: var(--mono); font-weight: 500; font-size: 0.85rem;
+    box-shadow: 0 0 18px var(--green-glow);
+    position: relative;
+  }
+  .chat-avatar::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 1px solid var(--green-mid); opacity: 0; animation: pulseRing 2.4s ease-out infinite;
+  }
+  @keyframes pulseRing { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.5); opacity: 0; } }
+  .chat-id { display: flex; flex-direction: column; gap: 0.15rem; }
+  .chat-name { font-family: var(--sans); font-weight: 600; font-size: 0.9rem; }
+  .chat-status { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 0.4rem; }
+  .chat-status .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 1.6s ease-in-out infinite; }
+
+  .chat-body {
+    padding: 1.5rem; min-height: 320px; max-height: 480px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0.85rem;
+    background-image: linear-gradient(rgba(0,230,118,0.018) 1px, transparent 1px); background-size: 100% 28px;
+    scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+  }
+  .chat-body::-webkit-scrollbar { width: 6px; }
+  .chat-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+
+  .chat-msg {
+    max-width: 82%; padding: 0.7rem 1rem; border-radius: 14px;
+    font-size: 0.9rem; line-height: 1.55;
+    opacity: 0; transform: translateY(8px); animation: msgIn 0.35s ease forwards;
+  }
+  @keyframes msgIn { to { opacity: 1; transform: none; } }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--bg3); border: 1px solid var(--line);
+    border-bottom-left-radius: 4px; color: rgba(245,242,235,0.9);
+  }
+  .chat-msg.bot strong { color: var(--green); font-weight: 600; }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--green), #00b85f);
+    color: var(--bg); font-weight: 500;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-typing {
+    align-self: flex-start; display: inline-flex; gap: 4px;
+    background: var(--bg3); border: 1px solid var(--line);
+    padding: 0.85rem 1rem; border-radius: 14px; border-bottom-left-radius: 4px;
+  }
+  .chat-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--green); opacity: 0.4; animation: typingDot 1.2s infinite; }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot { 0%,60%,100% { opacity: 0.25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+
+  .chat-quick {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding: 1rem 1.25rem; border-top: 1px solid var(--line);
+    background: rgba(0,0,0,0.2);
+  }
+  .quick-chip {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em;
+    color: var(--green); background: transparent;
+    border: 1px solid var(--green-mid); border-radius: 999px;
+    padding: 0.5rem 1rem; cursor: none;
+    transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .quick-chip:hover { background: var(--green-dim); border-color: var(--green); }
+  .quick-chip:disabled { opacity: 0.35; }
+  .quick-chip.done { opacity: 0.4; border-color: var(--line); color: var(--muted); }
+
+  /* ── RUN ONBOARDING SIMULATION ── */
+  .sim-shell {
+    background: linear-gradient(180deg, rgba(18,27,21,0.7), rgba(10,15,13,0.7));
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+  }
+  .sim-top {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    padding: 1.5rem 2rem; border-bottom: 1px solid var(--line);
+  }
+  .sim-top h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
+  .sim-top h3 em { font-style: italic; font-weight: 300; color: var(--green); }
+  .sim-run-btn {
+    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--bg); background: var(--green);
+    border: none; border-radius: 999px; padding: 0.8rem 1.75rem; cursor: none;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    box-shadow: 0 0 24px -4px var(--green-glow); transition: all 0.2s;
+  }
+  .sim-run-btn:hover { background: var(--green-soft); transform: translateY(-1px); }
+  .sim-run-btn:disabled { opacity: 0.5; }
+  .sim-run-btn.running { background: var(--bg3); color: var(--green); border: 1px solid var(--green-mid); }
+
+  .race-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .race-col { background: var(--bg); padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .col-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .lane-name { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 0.6rem; }
+  .lane-name .badge { font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 4px; }
+  .race-col.human .lane-name { color: var(--amber); }
+  .race-col.human .badge { background: rgba(255,183,77,0.12); color: var(--amber); }
+  .race-col.bot .lane-name { color: var(--green); }
+  .race-col.bot .badge { background: var(--green-dim); color: var(--green); }
+  .lane-time { font-family: var(--mono); font-size: 0.8rem; color: rgba(245,242,235,0.6); }
+  .track { height: 12px; border-radius: 999px; background: var(--bg2); border: 1px solid var(--line); overflow: hidden; position: relative; }
+  .track-fill { height: 100%; width: 0; border-radius: 999px; transition: width 0.1s linear; }
+  .race-col.human .track-fill { background: linear-gradient(90deg, rgba(255,183,77,0.5), var(--amber)); }
+  .race-col.bot .track-fill { background: linear-gradient(90deg, #00b85f, var(--green-soft)); box-shadow: 0 0 16px var(--green-glow); }
+
+  .col-steps { display: flex; flex-direction: column; margin-top: 0.5rem; }
+  .proc-step {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+    padding: 0.9rem 0; border-top: 1px solid var(--line);
+    opacity: 0.3; transform: translateX(-6px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .proc-step.active { opacity: 1; transform: none; }
+  .proc-num { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; padding-top: 0.15rem; flex-shrink: 0; }
+  .race-col.human .proc-num { color: var(--amber); }
+  .race-col.bot .proc-num { color: var(--green); }
+  .proc-title { font-family: var(--sans); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; color: rgba(245,242,235,0.92); }
+  .proc-desc { font-size: 0.82rem; line-height: 1.6; color: rgba(245,242,235,0.62); }
+
+  .proc-result {
+    margin-top: auto; padding: 0.9rem 1rem; border-radius: 8px;
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.03em;
+    display: flex; align-items: center; gap: 0.5rem;
+    opacity: 0.3; transition: opacity 0.45s ease;
+  }
+  .proc-result.active { opacity: 1; }
+  .human-result { background: rgba(255,183,77,0.08); border: 1px solid rgba(255,183,77,0.25); color: var(--amber); }
+  .bot-result { background: var(--green-dim); border: 1px solid var(--green-mid); color: var(--green); }
+  .proc-result strong { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 7rem 1.5rem 2.5rem; align-items: start; }
+    .hero-side { justify-content: flex-start; }
+    .hero-kpis { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .kpi { text-align: left; }
+    .bot-section, .sim-top { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .race-compare { grid-template-columns: 1fr; }
+    .chat-body { min-height: 280px; }
+  }
+  @media (max-width: 640px) {
+    .back-link { top: 1.25rem; left: 1.25rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .section-label { margin-bottom: 2rem; }
+    .hero { padding: 6rem 1.25rem 2.5rem; }
+    .hero-title { font-size: clamp(1.9rem, 8.5vw, 2.6rem); }
+    .hero-kpis { gap: 1.5rem 2rem; }
+    .kpi-val { font-size: 2rem; }
+    .terminal-wrapper { grid-template-columns: 1fr; gap: 1.5rem; }
+    .terminal-desc h3 { font-size: 1.5rem; }
+    .metrics-showcase { grid-template-columns: 1fr; }
+    .metric-block { padding: 2rem 1.5rem; }
+    .metric-big { font-size: 2.75rem; }
+    .bot-section { padding: 3rem 1.25rem 4rem; }
+    .sim-top { padding: 1.25rem; }
+    .race-col { padding: 1.5rem 1.25rem; }
+    .proj-footer { padding: 2.5rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.v { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cd"></div>
+<div class="cursor-ring" id="cr"></div>
+
+<a href="index.html" class="back-link">← Back to portfolio</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-eyebrow">Project 01 · Parity Cube · 2025–Present <span class="blink">▋</span></div>
+    <h2 class="hero-title">
+      Turning 2 weeks of manual work into <em>5 minutes.</em>
+    </h2>
+    <p class="hero-desc">Architected an MCP (Model Context Protocol) server and AI-powered onboarding bot that replaced a 2-week manual client onboarding process with an intelligent self-serve workflow — serving 100K+ MAUs across two distinct SaaS platforms.</p>
+  </div>
+  <div class="hero-side">
+    <div class="hero-kpis">
+      <div class="kpi">
+        <div class="kpi-val">2wk</div>
+        <div class="kpi-label">→ 5 mins</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">100K+</div>
+        <div class="kpi-label">MAUs</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">MCP</div>
+        <div class="kpi-label">Protocol</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT BOT SPINE -->
+<section class="bot-section fade-up" id="bot">
+  <div class="bot-intro">
+    <div class="section-label">Meet the bot</div>
+    <h2>The best way to explain it is to <em>let it onboard you.</em></h2>
+    <p>This is the same conversational pattern the production bot uses to onboard new clients — except here, it's onboarding you into the case study. Pick a prompt and it'll take you there.</p>
+  </div>
+
+  <div class="chat-shell">
+    <div class="chat-header">
+      <div class="chat-avatar">◍</div>
+      <div class="chat-id">
+        <span class="chat-name">Onboarding Bot</span>
+        <span class="chat-status"><span class="live-dot"></span> Online · powered by MCP</span>
+      </div>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-quick" id="chatQuick">
+      <button class="quick-chip" data-key="problem">What was the problem?</button>
+      <button class="quick-chip" data-key="how">How does it work?</button>
+      <button class="quick-chip" data-key="run">Run the onboarding ▶</button>
+      <button class="quick-chip" data-key="results">What were the results?</button>
+      <button class="quick-chip" data-key="stack">Tech &amp; skills</button>
+    </div>
+  </div>
+</section>
+
+<!-- TERMINAL SECTION -->
+<section class="section fade-up" id="problem">
+  <div class="section-label">The Problem</div>
+  <div class="terminal-wrapper">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        <span class="t-title">onboarding_old.sh — BEFORE</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-comment"># Legacy onboarding — manual, slow, error-prone</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ receive_client_brief.sh</span><br>
+        <span class="t-warn">⚠ awaiting CSM assignment... (2–3 days)</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ validate_requirements.py --manual</span><br>
+        <span class="t-warn">⚠ spreadsheet review in progress... (3 days)</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ configure_cuelinks_account.sh</span><br>
+        <span class="t-warn">⚠ waiting on engineering ticket... (4 days)</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ send_welcome_email.py</span><br>
+        <span class="t-warn">⚠ manual template + send... (1 day)</span><br>
+        <span class="t-space"></span>
+        <span class="t-comment"># Total: ~14 working days</span><br>
+        <span class="t-comment"># Error rate: high. Scale: impossible.</span>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        <span class="t-title">mcp_onboarding.py — AFTER</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-comment"># AI-powered MCP onboarding — self-serve</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ mcp_server.start()</span><br>
+        <span class="t-out">✓ MCP server online. Listening on port 8080</span><br>
+        <span class="t-space"></span>
+        <span class="t-cmd">$ onboard_client(brief="new_publisher")</span><br>
+        <span class="t-out">✓ requirements parsed via LLM (0.4s)</span><br>
+        <span class="t-out">✓ account configured automatically (1.2s)</span><br>
+        <span class="t-out">✓ welcome flow personalised (0.3s)</span><br>
+        <span class="t-out">✓ KPIs dashboard provisioned (0.8s)</span><br>
+        <span class="t-space"></span>
+        <span class="t-out">✓ Client onboarded in 4m 38s</span><br>
+        <span class="t-space"></span>
+        <span class="t-comment"># Total: ~5 minutes</span><br>
+        <span class="t-comment"># Error rate: near-zero. Scale: unlimited.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW SECTION -->
+<section class="section fade-up" id="how">
+  <div class="section-label">How it works</div>
+  <div class="terminal-wrapper">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <div class="flow-content">
+          <h4>Client submits brief via self-serve portal</h4>
+          <p>A lightweight intake form replaces back-and-forth emails. The AI bot parses intent, product type, and requirements using an LLM — no human in the loop needed.</p>
+          <span class="state-badge old">Old: 2–3 day CSM handoff</span>
+          <span style="display:block; height:0.4rem"></span>
+          <span class="state-badge new">New: instant parse &lt;1s</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <div class="flow-content">
+          <h4>MCP server routes & configures</h4>
+          <p>The Model Context Protocol server acts as the orchestration layer — calling the right APIs (Cuelinks, Zingoy), provisioning accounts, and setting default KPI dashboards based on client type.</p>
+          <span class="state-badge new">Automated account setup</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <div class="flow-content">
+          <h4>Personalised welcome & activation flow</h4>
+          <p>The bot generates a personalised onboarding sequence — contextual tips, first-action prompts, and integration docs — tailored to the client's platform (B2B publisher or B2C consumer).</p>
+          <span class="state-badge new">Dynamic, not templated</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <div class="flow-content">
+          <h4>KPIs tracked from day 0</h4>
+          <p>Activation rate, engagement, and 30/60/90-day retention counters start from first interaction. No manual setup, no data lag. Defined and tracked via Mixpanel.</p>
+          <span class="state-badge new">Metrics live from minute 1</span>
+        </div>
+      </div>
+    </div>
+    <div class="terminal-desc">
+      <h3>An engineering problem<br><em>reframed as a product opportunity.</em></h3>
+      <p>Most teams treat onboarding as a CS burden. I saw it as the product's first impression — and the biggest lever for activation. By owning the full spec from intake form to KPI dashboard, the team shipped something that scaled without adding headcount.</p>
+      <p>This was built with a small cross-functional squad: 2 engineers, 1 designer, and my product direction. We went from brief to production in 10 weeks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RUN ONBOARDING SIMULATION -->
+<section class="section fade-up" id="run">
+  <div class="section-label">See it run</div>
+  <div class="sim-shell">
+    <div class="sim-top">
+      <h3>Onboard a client <em>in real time.</em></h3>
+      <button class="sim-run-btn" id="simBtn">▶ Run onboarding</button>
+    </div>
+    <div class="race-compare">
+
+      <!-- Manual / Legacy -->
+      <div class="race-col human">
+        <div class="col-head">
+          <span class="lane-name">Manual Process <span class="badge">Legacy</span></span>
+          <span class="lane-time" id="humanTime">0%</span>
+        </div>
+        <div class="track"><div class="track-fill" id="humanFill"></div></div>
+        <div class="col-steps">
+          <div class="proc-step" data-at="8">
+            <span class="proc-num">01</span>
+            <div class="proc-body">
+              <div class="proc-title">Sign-up &amp; approval</div>
+              <div class="proc-desc">A new user signs up, then waits for the team to review and approve the account by hand.</div>
+            </div>
+          </div>
+          <div class="proc-step" data-at="28">
+            <span class="proc-num">02</span>
+            <div class="proc-body">
+              <div class="proc-title">Campaign approval</div>
+              <div class="proc-desc">The user applies for a campaign; the team manually checks eligibility before signing off on each one.</div>
+            </div>
+          </div>
+          <div class="proc-step" data-at="55">
+            <span class="proc-num">03</span>
+            <div class="proc-body">
+              <div class="proc-title">Earnings begin</div>
+              <div class="proc-desc">Revenue only starts once the entire manual chain has cleared — every step gated by a person.</div>
+            </div>
+          </div>
+        </div>
+        <div class="proc-result human-result" id="humanResult">First earning in <strong>~2 weeks</strong></div>
+      </div>
+
+      <!-- AI Bot / MCP -->
+      <div class="race-col bot">
+        <div class="col-head">
+          <span class="lane-name">AI Bot · MCP <span class="badge">Automated</span></span>
+          <span class="lane-time" id="botTime">00:00</span>
+        </div>
+        <div class="track"><div class="track-fill" id="botFill"></div></div>
+        <div class="col-steps">
+          <div class="proc-step" data-at="0">
+            <span class="proc-num">01</span>
+            <div class="proc-body">
+              <div class="proc-title">Sign-up &amp; approval</div>
+              <div class="proc-desc">The user signs up and the bot instantly verifies their identity and grants access via Auth0.</div>
+            </div>
+          </div>
+          <div class="proc-step" data-at="40">
+            <span class="proc-num">02</span>
+            <div class="proc-body">
+              <div class="proc-title">Campaign matching</div>
+              <div class="proc-desc">The bot reads the user's niche and automatically approves the most relevant campaigns for them.</div>
+            </div>
+          </div>
+          <div class="proc-step" data-at="85">
+            <span class="proc-num">03</span>
+            <div class="proc-body">
+              <div class="proc-title">Earnings begin</div>
+              <div class="proc-desc">The user goes live and starts earning almost immediately — with no human in the loop.</div>
+            </div>
+          </div>
+        </div>
+        <div class="proc-result bot-result" id="botResult">First earning in <strong>under 5 minutes</strong></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="section fade-up" id="results">
+  <div class="section-label">Outcomes</div>
+  <div class="metrics-showcase">
+    <div class="metric-block">
+      <div class="metric-big">2wk</div>
+      <div class="metric-name">→ 5 minutes</div>
+      <div class="metric-context">Onboarding time reduction. What took a CSM 2 working weeks now completes autonomously in under 5 minutes.</div>
+    </div>
+    <div class="metric-block">
+      <div class="metric-big">100K+</div>
+      <div class="metric-name">MAUs across platforms</div>
+      <div class="metric-context">The system serves both Cuelinks (B2B publishers) and Zingoy (B2C consumers) — two completely different user bases with one architecture.</div>
+    </div>
+    <div class="metric-block">
+      <div class="metric-big">∞</div>
+      <div class="metric-name">Scale ceiling removed</div>
+      <div class="metric-context">The old process bottlenecked at ~8 clients/month per CSM. The new system has no theoretical upper bound on concurrent onboardings.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section fade-up" id="stack">
+  <div class="section-label">Stack & Skills</div>
+  <div class="tech-grid">
+    <div class="tech-pill"><span>MCP Server Architecture</span></div>
+    <div class="tech-pill"><span>LLM Integration</span></div>
+    <div class="tech-pill"><span>Product Strategy</span></div>
+    <div class="tech-pill"><span>Mixpanel</span></div>
+    <div class="tech-pill"><span>Figma</span></div>
+    <div class="tech-pill"><span>Agile / Sprint Planning</span></div>
+    <div class="tech-pill"><span>KPI Definition</span></div>
+    <div class="tech-pill"><span>B2B SaaS</span></div>
+    <div class="tech-pill"><span>API Design</span></div>
+    <div class="tech-pill"><span>Cross-functional Leadership</span></div>
+  </div>
+</section>
+
+<div class="proj-footer">
+  <span class="proj-footer-copy">Vikas Vasudevan · Parity Cube · 2025</span>
+  <a href="index.html">← Back to all work</a>
+</div>
+
+<script>
+  const cd = document.getElementById('cd'), cr = document.getElementById('cr');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cd.style.left=mx+'px'; cd.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; cr.style.left=rx+'px'; cr.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  function bindHover(el){ el.addEventListener('mouseenter',()=>cr.classList.add('h')); el.addEventListener('mouseleave',()=>cr.classList.remove('h')); }
+  document.querySelectorAll('a, button, .quick-chip').forEach(bindHover);
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), {threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  /* ── CHAT BOT ── */
+  const chatBody = document.getElementById('chatBody');
+  const chatQuick = document.getElementById('chatQuick');
+  let chatBusy = false;
+
+  function scrollChat(){ chatBody.scrollTop = chatBody.scrollHeight; }
+  function addMsg(html, who){
+    const d = document.createElement('div');
+    d.className = 'chat-msg ' + who;
+    d.innerHTML = html;
+    chatBody.appendChild(d); scrollChat(); return d;
+  }
+  function typing(){
+    const t = document.createElement('div');
+    t.className = 'chat-typing';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    chatBody.appendChild(t); scrollChat(); return t;
+  }
+  function delay(ms){ return new Promise(r => setTimeout(r, ms)); }
+  async function botSay(lines){
+    for (const line of lines){
+      const t = typing();
+      await delay(550 + Math.min(line.length * 12, 900));
+      t.remove();
+      addMsg(line, 'bot');
+      await delay(250);
+    }
+  }
+
+  const responses = {
+    problem: { label: 'What was the problem?', scroll: 'problem', lines: [
+      'Onboarding a new client used to take <strong>~14 working days</strong> of manual, error-prone work — CSM handoffs, spreadsheet reviews, engineering tickets.',
+      "It capped growth at roughly <strong>8 clients/month</strong> per CSM. Scroll up a touch — I've laid the old vs. new flow out as side-by-side terminals. 👆" ]},
+    how: { label: 'How does it work?', scroll: 'how', lines: [
+      'Four steps: you submit a brief, my <strong>MCP server</strong> parses & routes it, I personalise a welcome flow, then provision KPI dashboards from minute one.',
+      "Taking you to the full breakdown now — watch the steps light up. ✨" ]},
+    run: { label: 'Run the onboarding', scroll: 'run', run: true, lines: [
+      "Love that. Let's race a human against me in real time. 🏁",
+      'Hit <strong>▶ Run onboarding</strong> and watch the lanes — spoiler: it is not close.' ]},
+    results: { label: 'What were the results?', scroll: 'results', lines: [
+      '<strong>2 weeks → ~5 minutes.</strong> Near-zero error rate, and the scale ceiling basically disappeared.',
+      'It now serves <strong>100K+ MAUs</strong> across two very different platforms (Cuelinks B2B + Zingoy B2C) on one architecture.' ]},
+    stack: { label: 'Tech & skills', scroll: 'stack', lines: [
+      'MCP server architecture, LLM integration, API design — plus the PM craft: KPI definition, Mixpanel, sprint planning and cross-functional leadership.',
+      'Full list is just below. 👇' ]}
+  };
+
+  async function handleQuick(key){
+    if (chatBusy) return;
+    chatBusy = true;
+    const r = responses[key];
+    addMsg(r.label, 'user');
+    const chip = chatQuick.querySelector(`[data-key="${key}"]`);
+    if (chip) chip.classList.add('done');
+    await delay(350);
+    await botSay(r.lines);
+    chatBusy = false;
+    if (r.scroll){
+      const target = document.getElementById(r.scroll);
+      if (target){
+        await delay(400);
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (r.run) setTimeout(() => runSim(), 900);
+      }
+    }
+  }
+
+  chatQuick.querySelectorAll('.quick-chip').forEach(chip => {
+    chip.addEventListener('click', () => handleQuick(chip.dataset.key));
+  });
+
+  let greeted = false;
+  const greetObs = new IntersectionObserver(async es => {
+    for (const e of es){
+      if (e.isIntersecting && !greeted){
+        greeted = true;
+        chatBusy = true;
+        await delay(400);
+        await botSay([
+          "👋 Hey — I'm the onboarding bot Vikas shipped at Parity Cube.",
+          'I turned a <strong>2-week</strong> manual setup into a <strong>~5-minute</strong> self-serve flow. Want me to walk you through it?',
+          'Tap any prompt below and I\'ll take you straight there. 👇'
+        ]);
+        chatBusy = false;
+      }
+    }
+  }, { threshold: 0.4 });
+  const botSection = document.getElementById('bot');
+  if (botSection) greetObs.observe(botSection);
+
+  /* ── RUN ONBOARDING SIMULATION ── */
+  const simBtn = document.getElementById('simBtn');
+  const humanFill = document.getElementById('humanFill');
+  const botFill = document.getElementById('botFill');
+  const humanTime = document.getElementById('humanTime');
+  const botTime = document.getElementById('botTime');
+  const botSteps = Array.from(document.querySelectorAll('.race-col.bot .proc-step'));
+  const humanSteps = Array.from(document.querySelectorAll('.race-col.human .proc-step'));
+  const humanResult = document.getElementById('humanResult');
+  const botResult = document.getElementById('botResult');
+  let simRunning = false;
+
+  function fmtClock(sec){
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function activateSteps(steps, pct){
+    steps.forEach(step => {
+      if (pct >= parseFloat(step.dataset.at)) step.classList.add('active');
+    });
+  }
+
+  function runSim(){
+    if (simRunning) return;
+    simRunning = true;
+    simBtn.classList.add('running');
+    simBtn.textContent = '● Running…';
+    simBtn.disabled = true;
+    botSteps.forEach(s => s.classList.remove('active'));
+    humanSteps.forEach(s => s.classList.remove('active'));
+    botResult.classList.remove('active');
+    humanResult.classList.remove('active');
+    humanFill.style.width = '0%'; botFill.style.width = '0%';
+
+    const botDuration = 3200;   // bot finishes fast
+    const humanDuration = 9000; // human crawls, never quite catches up in view
+    const start = performance.now();
+
+    function frame(now){
+      const elapsed = now - start;
+      const botP = Math.min(elapsed / botDuration, 1);
+      const humanP = Math.min(elapsed / humanDuration, 1) * 0.45; // human only gets ~45% in the time bot finishes
+
+      botFill.style.width = (botP * 100) + '%';
+      humanFill.style.width = (humanP * 100) + '%';
+      botTime.textContent = fmtClock(botP * 278); // 4m38s = 278s
+      humanTime.textContent = Math.round(humanP * 100) + '%';
+
+      activateSteps(botSteps, botP * 100);
+      activateSteps(humanSteps, humanP * 100);
+
+      if (botP < 1){
+        requestAnimationFrame(frame);
+      } else {
+        botTime.textContent = '04:38';
+        botResult.classList.add('active');
+        simBtn.classList.remove('running');
+        simBtn.textContent = '↻ Run again';
+        simBtn.disabled = false;
+        simRunning = false;
+        // let the human lane keep crawling for contrast — it finishes long after the bot
+        let h = humanP;
+        const crawl = setInterval(() => {
+          h = Math.min(h + 0.01, 1);
+          humanFill.style.width = (h * 100) + '%';
+          humanTime.textContent = Math.round(h * 100) + '%';
+          activateSteps(humanSteps, h * 100);
+          if (h >= 1){ humanResult.classList.add('active'); clearInterval(crawl); }
+        }, 90);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  if (simBtn) simBtn.addEventListener('click', runSim);
+</script>
+</body>
+</html>

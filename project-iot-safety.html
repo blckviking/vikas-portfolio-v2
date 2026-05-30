@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise IoT Safety Platform — Vikas Vasudevan</title>
+
+<!-- Primary SEO -->
+<meta name="description" content="Case study: Vikas Vasudevan owned the full product lifecycle of a safety-critical enterprise IoT platform serving 50K+ MAUs across 32 enterprise clients.">
+<meta name="author" content="Vikas Vasudevan">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://vikasvasudevan.in/project-iot-safety.html">
+<meta name="theme-color" content="#c94a2b">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vikas Vasudevan">
+<meta property="og:title" content="Enterprise IoT Safety Platform — Case Study by Vikas Vasudevan">
+<meta property="og:description" content="Owning the full product lifecycle of a safety-critical enterprise IoT platform serving 50K+ MAUs across 32 enterprise clients.">
+<meta property="og:url" content="https://vikasvasudevan.in/project-iot-safety.html">
+<meta property="og:image" content="https://vikasvasudevan.in/og-image.png">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise IoT Safety Platform — Case Study by Vikas Vasudevan">
+<meta name="twitter:description" content="Owning the full product lifecycle of a safety-critical enterprise IoT platform serving 50K+ MAUs across 32 enterprise clients.">
+<meta name="twitter:image" content="https://vikasvasudevan.in/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23c94a2b'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23f5f2eb'%3EV%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f2eb;
+    --paper-warm: #ede9de;
+    --ink: #0f0e0c;
+    --ink-soft: #1c1a16;
+    --accent: #c94a2b;
+    --amber: #e8a020;
+    --green: #2e7d32;
+    --blue: #1a5276;
+    --map-blue: #1a73e8;
+    --text-muted: #6b6560;
+    --border: rgba(15,14,12,0.12);
+    --border-strong: rgba(15,14,12,0.2);
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Instrument Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); cursor: none; overflow-x: hidden; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  .cursor-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+  .cursor-ring { width: 32px; height: 32px; border: 1.5px solid var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s; opacity: 0.5; }
+  .cursor-ring.h { transform: translate(-50%,-50%) scale(2); opacity: 0.2; }
+
+  .back-link { position: fixed; top: 1.75rem; left: 2rem; z-index: 100; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; background: rgba(245,242,235,0.7); backdrop-filter: blur(4px); padding: 0.4rem 0.7rem; border: 1px solid var(--border); }
+  .back-link:hover { color: var(--accent); }
+
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; box-shadow: 0 0 0 0 rgba(201,74,43,0.5); animation: livePulse 1.6s ease-in-out infinite; }
+  @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(201,74,43,0.5); } 70% { box-shadow: 0 0 0 7px rgba(201,74,43,0); } 100% { box-shadow: 0 0 0 0 rgba(201,74,43,0); } }
+
+  /* ── OPS STATUS BAR ── */
+  .ops-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+    background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.5rem 1.5rem 0.5rem 11rem;
+    border-bottom: 1px solid rgba(245,242,235,0.12);
+  }
+  .ops-bar .ops-left { display: flex; align-items: center; gap: 0.6rem; color: rgba(245,242,235,0.55); }
+  .ops-bar .ops-left .live-dot { background: #5fd068; box-shadow: 0 0 0 0 rgba(95,208,104,0.5); animation: livePulseG 1.6s ease-in-out infinite; }
+  @keyframes livePulseG { 0% { box-shadow: 0 0 0 0 rgba(95,208,104,0.5);} 70%{box-shadow:0 0 0 7px rgba(95,208,104,0);} 100%{box-shadow:0 0 0 0 rgba(95,208,104,0);} }
+  .ops-bar .ops-right { display: flex; gap: 1.5rem; color: rgba(245,242,235,0.4); }
+  .ops-bar .ops-clock { color: rgba(245,242,235,0.7); }
+  @media (max-width: 720px){ .ops-bar { padding-left: 1.5rem; } .ops-bar .ops-right { display: none; } }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1.05fr;
+    border-bottom: 2px solid var(--ink);
+    padding-top: 2rem;
+  }
+  .hero-left {
+    background: var(--ink); color: var(--bg);
+    padding: 7rem 3.5rem 4rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative; overflow: hidden;
+  }
+  .hero-left::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(245,242,235,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(245,242,235,0.035) 1px, transparent 1px);
+    background-size: 40px 40px; pointer-events: none;
+  }
+  .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.6rem; position: relative; z-index: 1; }
+  .hero-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; color: var(--bg); margin-bottom: 2.25rem; position: relative; z-index: 1; }
+  .hero-title em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .hero-sub { font-size: 0.95rem; line-height: 1.7; color: rgba(245,242,235,0.55); max-width: 420px; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .hero-stat-row { display: flex; gap: 2.25rem; position: relative; z-index: 1; flex-wrap: wrap; }
+  .h-stat-val { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--bg); line-height: 1; }
+  .h-stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,235,0.4); margin-top: 0.35rem; }
+
+  .hero-right { background: var(--paper-warm); padding: 6.5rem 2.5rem 3rem; display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
+
+  /* ── CONSOLE PANEL ── */
+  .panel { background: var(--bg); border: 1px solid var(--border-strong); box-shadow: 0 18px 50px -24px rgba(15,14,12,0.3); }
+  .panel-bar { background: var(--ink); padding: 0.7rem 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+  .panel-bar .pt { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,242,235,0.55); display: flex; align-items: center; gap: 0.5rem; }
+  .panel-bar .pt .dotset { display: inline-flex; gap: 4px; margin-right: 0.3rem; }
+  .panel-bar .pt .dotset i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .panel-bar .pt .dotset i:nth-child(1){ background:#e0584a; } .panel-bar .pt .dotset i:nth-child(2){ background:#e8a020; } .panel-bar .pt .dotset i:nth-child(3){ background:#5fd068; }
+  .panel-bar .pr { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; }
+
+  /* map */
+  .map-wrap { position: relative; height: 248px; background: #0c0b09; overflow: hidden; }
+  .map-wrap > svg { width: 100%; height: 100%; display: block; }
+  .map-tag { position: absolute; bottom: 8px; left: 10px; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,235,0.55); background: rgba(12,11,9,0.6); backdrop-filter: blur(2px); padding: 0.2rem 0.4rem; border-radius: 3px; z-index: 4; }
+  .map-tag.r { left: auto; right: 10px; color: var(--amber); }
+
+  /* map chrome */
+  .map-compass { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 1px solid rgba(245,242,235,0.2); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mono); font-size: 0.5rem; line-height: 1; color: rgba(245,242,235,0.5); background: rgba(12,11,9,0.45); backdrop-filter: blur(2px); z-index: 4; }
+  .map-compass .n { color: var(--accent); font-weight: 500; font-size: 0.62rem; }
+  .map-zoom { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; border: 1px solid rgba(245,242,235,0.18); border-radius: 4px; overflow: hidden; z-index: 4; }
+  .map-zoom button { background: rgba(12,11,9,0.55); color: rgba(245,242,235,0.7); border: none; width: 24px; height: 22px; font-family: var(--mono); font-size: 0.85rem; cursor: none; }
+  .map-zoom button:first-child { border-bottom: 1px solid rgba(245,242,235,0.14); }
+  .map-zoom button:hover { background: var(--accent); color: var(--bg); }
+  .map-scale { position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 0.4rem; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.08em; color: rgba(245,242,235,0.45); z-index: 4; }
+  .map-scale .bar { width: 42px; height: 5px; border: 1px solid rgba(245,242,235,0.4); border-top: none; }
+
+  .console-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-top: 1px solid var(--border); }
+  .ck { background: var(--bg); padding: 0.85rem 1rem; }
+  .ck-val { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .ck-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
+
+  /* incident feed */
+  .feed { border-top: 1px solid var(--border); }
+  .feed-row { display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; align-items: center; padding: 0.6rem 1.1rem; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; animation: feedIn 0.4s ease; }
+  .feed-row:last-child { border-bottom: none; }
+  @keyframes feedIn { from { opacity: 0; transform: translateY(-6px); background: rgba(201,74,43,0.06); } to { opacity: 1; transform: none; } }
+  .feed-time { color: var(--text-muted); font-size: 0.65rem; }
+  .feed-label { color: var(--ink); }
+  .feed-sev { width: 8px; height: 8px; border-radius: 50%; }
+  .feed-sev.red { background: var(--accent); } .feed-sev.amber { background: var(--amber); } .feed-sev.green { background: var(--green); }
+
+  .hero-foot { font-size: 0.7rem; font-family: var(--mono); letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 6rem 4rem; border-bottom: 1px solid var(--border); }
+  .section-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .big-quote { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 300; font-style: italic; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink); }
+  .big-quote strong { font-weight: 700; font-style: normal; color: var(--accent); }
+  .body-text p { font-size: 0.9375rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+  /* ── INCIDENT DEMO ── */
+  .demo { display: grid; grid-template-columns: 1fr 1.15fr; gap: 0; border: 1px solid var(--border-strong); box-shadow: 0 24px 60px -30px rgba(15,14,12,0.35); }
+  .demo-left { background: var(--ink); color: var(--bg); padding: 2.25rem; display: flex; flex-direction: column; gap: 1.5rem; position: relative; overflow: hidden; }
+  .demo-left::before { content:''; position:absolute; inset:0; background-image: linear-gradient(rgba(245,242,235,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245,242,235,0.04) 1px, transparent 1px); background-size: 32px 32px; }
+  .demo-left > * { position: relative; z-index: 1; }
+  .demo-h { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .demo-h em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .demo-p { font-size: 0.85rem; line-height: 1.7; color: rgba(245,242,235,0.55); }
+
+  .gauges { display: flex; gap: 1.5rem; align-items: flex-end; }
+  .speedo { flex: 1; }
+  .speedo svg { width: 100%; height: auto; }
+  .speedo-read { font-family: var(--serif); font-size: 2rem; font-weight: 700; line-height: 1; margin-top: -0.5rem; }
+  .speedo-read .u { font-family: var(--mono); font-size: 0.7rem; color: rgba(245,242,235,0.5); margin-left: 0.25rem; }
+  .gforce { width: 78px; flex-shrink: 0; }
+  .gforce-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,235,0.45); margin-bottom: 0.5rem; }
+  .gforce-bar { height: 96px; width: 14px; margin: 0 auto; background: rgba(245,242,235,0.08); border: 1px solid rgba(245,242,235,0.15); border-radius: 7px; position: relative; overflow: hidden; }
+  .gforce-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0%; background: linear-gradient(to top, var(--green), var(--amber) 65%, var(--accent)); transition: height 0.08s linear; }
+  .gforce-val { font-family: var(--mono); font-size: 0.78rem; text-align: center; margin-top: 0.5rem; color: var(--bg); }
+
+  .demo-btn { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bg); background: var(--accent); border: none; padding: 0.85rem 1.5rem; cursor: none; display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start; transition: all 0.2s; }
+  .demo-btn:hover { background: #b13f22; }
+  .demo-btn:disabled { opacity: 0.55; }
+
+  .demo-right { background: var(--bg); padding: 2.25rem; display: flex; flex-direction: column; }
+  .demo-right-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .trace { height: 96px; border: 1px solid var(--border); background: var(--paper-warm); position: relative; margin-bottom: 1.5rem; }
+  .trace svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trace-axis { position: absolute; left: 6px; top: 4px; font-family: var(--mono); font-size: 0.55rem; color: var(--text-muted); letter-spacing: 0.08em; }
+
+  .pipe { display: flex; flex-direction: column; gap: 0; flex: 1; }
+  .pipe-step { display: grid; grid-template-columns: 22px 1fr auto; gap: 0.85rem; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--border); opacity: 0.35; transition: opacity 0.3s; }
+  .pipe-step:last-child { border-bottom: none; }
+  .pipe-step.active { opacity: 1; }
+  .pipe-tick { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--bg); }
+  .pipe-step.active .pipe-tick { background: var(--green); border-color: var(--green); }
+  .pipe-step.alert.active .pipe-tick { background: var(--accent); border-color: var(--accent); }
+  .pipe-text { font-size: 0.85rem; color: var(--ink); }
+  .pipe-time { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); }
+  .pipe-result { margin-top: 1.25rem; padding: 0.85rem 1rem; background: rgba(46,125,50,0.08); border: 1px solid rgba(46,125,50,0.35); color: var(--green); font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.03em; display: flex; align-items: center; gap: 0.5rem; opacity: 0; transition: opacity 0.4s; }
+  .pipe-result.show { opacity: 1; }
+
+  /* ── METRIC GAUGES ── */
+  .gauge-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .gauge-cell { background: var(--bg); padding: 2.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: background 0.2s; }
+  .gauge-cell:hover { background: var(--paper-warm); }
+  .gauge-ring { position: relative; width: 132px; height: 132px; margin-bottom: 1.25rem; }
+  .gauge-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+  .gauge-track { fill: none; stroke: var(--border); stroke-width: 9; }
+  .gauge-prog { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; stroke-dasharray: 339.292; stroke-dashoffset: 339.292; transition: stroke-dashoffset 1.4s cubic-bezier(0.22,1,0.36,1); }
+  .gauge-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .gauge-num { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .gauge-num .unit { color: var(--accent); font-size: 1.1rem; }
+  .gauge-name { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.6rem; }
+  .gauge-desc { font-size: 0.8rem; line-height: 1.6; color: var(--text-muted); }
+
+  /* ── ROUTE TIMELINE ── */
+  .route { position: relative; padding-left: 70px; }
+  .road { position: absolute; left: 28px; top: 6px; bottom: 6px; width: 6px; background: rgba(15,14,12,0.12); border-radius: 3px; overflow: hidden; }
+  .road-progress { position: absolute; left: 28px; top: 6px; width: 6px; height: 0; background: #2a2723; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25), 0 1px 4px rgba(15,14,12,0.25); z-index: 1; overflow: hidden; transition: height 0.12s linear; }
+  .road-progress::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: repeating-linear-gradient(var(--amber) 0 10px, transparent 10px 22px); opacity: 0.9; }
+  .road-car { position: absolute; left: 19px; top: 6px; width: 24px; height: 24px; border-radius: 50%; background: var(--map-blue); border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(26,115,232,0.22), 0 2px 8px rgba(15,14,12,0.35); z-index: 4; transform: translateY(-50%); transition: top 0.12s linear, opacity 0.25s ease; }
+  .route-item { position: relative; padding: 1.6rem 0; }
+  .route-item::before { content: ''; position: absolute; left: -47px; top: 2rem; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 3px solid var(--ink); z-index: 2; transition: all 0.3s; }
+  .route-item.v::before { border-color: var(--map-blue); background: var(--map-blue); box-shadow: 0 0 0 4px rgba(26,115,232,0.15); }
+  /* destination pin (last stop) */
+  .route-item.dest::before { display: none; }
+  .dest-pin { position: absolute; left: -52px; top: 0; z-index: 5; transform-origin: 50% 100%; filter: drop-shadow(0 3px 5px rgba(15,14,12,0.3)); }
+  .route-item.dest.v .dest-pin { animation: pinDrop 0.5s cubic-bezier(0.2,0.9,0.3,1.4) both; }
+  @keyframes pinDrop { 0% { transform: translateY(-14px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  .route-date { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+  .route-date .km { color: var(--text-muted); }
+  .route-item h4 { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.45rem; letter-spacing: -0.01em; }
+  .route-item p { font-size: 0.875rem; line-height: 1.7; color: var(--text-muted); max-width: 640px; }
+  .route-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 1px solid var(--border); color: var(--text-muted); margin-top: 0.75rem; }
+  .route-badge.win { border-color: rgba(46,125,50,0.4); color: var(--green); }
+
+  /* ── LESSONS ── */
+  .lessons-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .lesson { background: var(--paper-warm); padding: 2rem; }
+  .lesson-num { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .lesson-title { font-family: var(--serif); font-size: 1.125rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; }
+  .lesson-body { font-size: 0.875rem; line-height: 1.7; color: var(--text-muted); }
+
+  .proj-footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  .proj-footer-copy { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
+  .proj-footer a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.v { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    .hero-right { padding: 2.5rem 1.5rem; }
+    .two-col, .gauge-grid, .lessons-grid { grid-template-columns: 1fr; }
+    .demo { grid-template-columns: 1fr; }
+    .gauge-grid { grid-template-columns: 1fr 1fr; }
+    .section { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 640px) {
+    .back-link { top: 2.6rem; left: 1.25rem; }
+    .section { padding: 3.25rem 1.25rem; }
+    .section-label { margin-bottom: 2rem; }
+    .hero-left { padding: 5.5rem 1.25rem 2.5rem; }
+    .hero-right { padding: 2rem 1.25rem; }
+    .hero-title { font-size: clamp(2.25rem, 9vw, 3rem); }
+    .gauge-grid { grid-template-columns: 1fr; }
+    .demo-left, .demo-right { padding: 1.75rem 1.4rem; }
+    .gauges { gap: 1rem; }
+    .big-quote { font-size: 1.6rem; }
+    .proj-footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2.5rem 1.5rem; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cd"></div>
+<div class="cursor-ring" id="cr"></div>
+
+<div class="ops-bar">
+  <span class="ops-left"><span class="live-dot"></span> Safety Connect · Operations Console</span>
+  <span class="ops-right">
+    <span>System: <span style="color:#5fd068">Nominal</span></span>
+    <span>Region: IN-West</span>
+    <span class="ops-clock" id="opsClock">--:--:--</span>
+  </span>
+</div>
+
+<a href="index.html" class="back-link">← Back</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="live-dot"></span> Live Platform · Safety Connect · 2021–2025</div>
+    <h1 class="hero-title">
+      50K drivers.<br>32 fleets.<br>
+      <em>Zero margin for error.</em>
+    </h1>
+    <p class="hero-sub">An enterprise IoT platform monitoring driver behaviour and fleet safety in real time — where a missed alert has real-world consequences.</p>
+    <div class="hero-stat-row">
+      <div class="h-stat">
+        <div class="h-stat-val" data-count="40" data-suffix="%">0%</div>
+        <div class="h-stat-label">Adoption Growth</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-val" data-count="80" data-suffix="%">0%</div>
+        <div class="h-stat-label">90-Day Retention</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-val" data-count="52" data-suffix="">0</div>
+        <div class="h-stat-label">NPS Score</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-val">$2M+</div>
+        <div class="h-stat-label">ARR Pipeline</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="panel">
+      <div class="panel-bar">
+        <span class="pt"><span class="dotset"><i></i><i></i><i></i></span> Fleet Monitor · Live</span>
+        <span class="pr"><span class="live-dot"></span> Streaming</span>
+      </div>
+      <div class="map-wrap">
+        <svg viewBox="0 0 420 248" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- hidden geometry used by vehicles -->
+            <path id="artH" d="M-10 132 L430 132"/>
+            <path id="artV" d="M208 -10 L208 258"/>
+            <path id="artD" d="M-10 30 L120 60 L210 150 L430 200"/>
+            <path id="route" d="M18 224 L92 224 L92 168 L150 168 L150 132 L260 132 L260 84 L356 84 L356 18"/>
+          </defs>
+
+          <!-- land base -->
+          <rect x="0" y="0" width="420" height="248" fill="#100e0b"/>
+
+          <!-- water / river -->
+          <path d="M-10 18 C 90 36, 110 96, 70 150 C 40 192, 80 236, 160 252 L -10 260 Z" fill="#13303d"/>
+          <path d="M-10 18 C 90 36, 110 96, 70 150 C 40 192, 80 236, 160 252" fill="none" stroke="#1c4456" stroke-width="1" opacity="0.6"/>
+
+          <!-- park -->
+          <rect x="300" y="150" width="108" height="80" rx="7" fill="#16240f"/>
+          <circle cx="330" cy="180" r="6" fill="#1e3314" opacity="0.8"/>
+          <circle cx="360" cy="200" r="8" fill="#1e3314" opacity="0.8"/>
+          <circle cx="385" cy="172" r="5" fill="#1e3314" opacity="0.8"/>
+
+          <!-- district blocks -->
+          <g fill="#181510">
+            <rect x="100" y="14" width="44" height="38" rx="3"/>
+            <rect x="152" y="14" width="40" height="38" rx="3"/>
+            <rect x="224" y="14" width="50" height="38" rx="3"/>
+            <rect x="282" y="14" width="56" height="38" rx="3"/>
+            <rect x="100" y="62" width="44" height="56" rx="3"/>
+            <rect x="152" y="62" width="40" height="56" rx="3"/>
+            <rect x="224" y="62" width="50" height="56" rx="3"/>
+            <rect x="282" y="62" width="56" height="56" rx="3"/>
+            <rect x="346" y="62" width="58" height="56" rx="3"/>
+            <rect x="118" y="146" width="74" height="44" rx="3"/>
+            <rect x="224" y="146" width="50" height="44" rx="3"/>
+            <rect x="118" y="200" width="74" height="40" rx="3"/>
+            <rect x="224" y="200" width="50" height="40" rx="3"/>
+          </g>
+          <g fill="#1d1913">
+            <rect x="152" y="62" width="40" height="26" rx="2"/>
+            <rect x="282" y="14" width="56" height="20" rx="2"/>
+            <rect x="118" y="146" width="40" height="44" rx="2"/>
+            <rect x="346" y="62" width="58" height="28" rx="2"/>
+          </g>
+
+          <!-- minor streets -->
+          <g stroke="#2a261f" stroke-width="1.2" fill="none">
+            <line x1="0" y1="56" x2="420" y2="56"/>
+            <line x1="0" y1="194" x2="420" y2="194"/>
+            <line x1="148" y1="0" x2="148" y2="248"/>
+            <line x1="278" y1="0" x2="278" y2="248"/>
+            <line x1="342" y1="0" x2="342" y2="248"/>
+            <line x1="96" y1="0" x2="96" y2="248"/>
+          </g>
+
+          <!-- arterial roads (casing + surface) -->
+          <g fill="none" stroke-linecap="round">
+            <use href="#artH" stroke="#24201a" stroke-width="7"/>
+            <use href="#artH" stroke="#5e584b" stroke-width="3.5"/>
+            <use href="#artV" stroke="#24201a" stroke-width="7"/>
+            <use href="#artV" stroke="#5e584b" stroke-width="3.5"/>
+            <use href="#artD" stroke="#24201a" stroke-width="6"/>
+            <use href="#artD" stroke="#534e43" stroke-width="2.5"/>
+          </g>
+
+          <!-- highlighted monitored route -->
+          <use href="#route" fill="none" stroke="rgba(201,74,43,0.22)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <use href="#route" fill="none" stroke="#c94a2b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- start (depot) & destination markers -->
+          <circle cx="18" cy="224" r="4.5" fill="#0c0b09" stroke="#5fd068" stroke-width="2"/>
+          <path d="M356 10 L362 20 L356 30 L350 20 Z" fill="#e8a020" stroke="#0c0b09" stroke-width="0.8"/>
+
+          <!-- vehicles -->
+          <circle r="3.6" fill="#c94a2b" stroke="#0c0b09" stroke-width="1"><animateMotion dur="10s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></circle>
+          <circle r="3" fill="#f5f2eb"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#artH"/></animateMotion></circle>
+          <circle r="3" fill="#f5f2eb"><animateMotion dur="12s" repeatCount="indefinite" begin="-4s"><mpath href="#artH"/></animateMotion></circle>
+          <circle r="3.4" fill="#e8a020"><animateMotion dur="11s" repeatCount="indefinite"><mpath href="#artV"/></animateMotion></circle>
+          <circle r="3" fill="#f5f2eb"><animateMotion dur="14s" repeatCount="indefinite" begin="-6s"><mpath href="#artD"/></animateMotion></circle>
+          <circle r="3.4" fill="#5fd068"><animateMotion dur="13s" repeatCount="indefinite" begin="-3s"><mpath href="#artV"/></animateMotion></circle>
+
+          <!-- incident at route bend -->
+          <g>
+            <circle cx="260" cy="84" r="4" fill="none" stroke="#c94a2b" stroke-width="1.5">
+              <animate attributeName="r" values="4;22" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="260" cy="84" r="3.5" fill="#c94a2b"/>
+          </g>
+
+          <!-- POI labels -->
+          <text x="313" y="166" font-family="'DM Mono', monospace" font-size="7" fill="rgba(245,242,235,0.4)" letter-spacing="0.5">CENTRAL PARK</text>
+          <text x="24" y="218" font-family="'DM Mono', monospace" font-size="7" fill="#5fd068" letter-spacing="0.5">DEPOT</text>
+          <text x="14" y="120" font-family="'DM Mono', monospace" font-size="7" fill="rgba(120,180,210,0.55)" letter-spacing="0.5">RIVER</text>
+        </svg>
+
+        <div class="map-zoom"><button aria-label="zoom in">+</button><button aria-label="zoom out">−</button></div>
+        <div class="map-compass"><span class="n">N</span><span>▲</span></div>
+        <div class="map-scale"><span class="bar"></span>2 km</div>
+        <span class="map-tag">Live telematics · 6 active units</span>
+        <span class="map-tag r">● 1 incident</span>
+      </div>
+      <div class="console-kpis">
+        <div class="ck"><div class="ck-val" id="ckVehicles">0</div><div class="ck-label">Drivers Monitored</div></div>
+        <div class="ck"><div class="ck-val" id="ckActive">0</div><div class="ck-label">Active Now</div></div>
+        <div class="ck"><div class="ck-val" id="ckUptime">99.9%</div><div class="ck-label">Uptime</div></div>
+      </div>
+      <div class="feed" id="feed"></div>
+    </div>
+    <p class="hero-foot">Safety-critical · Enterprise IoT · B2B SaaS</p>
+  </div>
+</section>
+
+<!-- THE CHALLENGE -->
+<section class="section fade-up">
+  <div class="section-label">The Challenge</div>
+  <div class="two-col">
+    <div class="big-quote">
+      Building a product where <strong>failure isn't an option</strong> — literally. Driver safety and fleet monitoring, at enterprise scale.
+    </div>
+    <div class="body-text">
+      <p>Safety Connect monitors driver behaviour — telematics, incident detection, compliance reporting — and fleet safety for organisations where a missed alert or a poor UX decision carries real-world consequences.</p>
+      <p>I owned the full product lifecycle across 32 enterprise clients and 50K+ monthly active users: roadmap, delivery, post-launch iteration, and retention. The platform had to be reliable, fast, and trusted.</p>
+      <p>The hard part wasn't shipping features — it was prioritising them. Every sprint balanced new enterprise demands against the stability that safety-critical clients depend on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INCIDENT DEMO -->
+<section class="section fade-up">
+  <div class="section-label">See it work — catch a live incident</div>
+  <div class="demo">
+    <div class="demo-left">
+      <div>
+        <div class="demo-h">A harsh-braking event,<br><em>caught in under a second.</em></div>
+        <p class="demo-p" style="margin-top:0.75rem;">Press simulate to fire a real driver event through the platform — exactly how the system detects, classifies, and escalates a safety incident in production.</p>
+      </div>
+      <div class="gauges">
+        <div class="speedo">
+          <div class="gforce-label">Vehicle Speed</div>
+          <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(245,242,235,0.12)" stroke-width="10" stroke-linecap="round"/>
+            <path id="speedoArc" d="M20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#c94a2b" stroke-width="10" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3"/>
+            <line id="needle" x1="100" y1="100" x2="20" y2="100" stroke="#f5f2eb" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="6" fill="#f5f2eb"/>
+          </svg>
+          <div class="speedo-read"><span id="speedVal">0</span><span class="u">km/h</span></div>
+        </div>
+        <div class="gforce">
+          <div class="gforce-label">G-Force</div>
+          <div class="gforce-bar"><div class="gforce-fill" id="gfill"></div></div>
+          <div class="gforce-val" id="gval">0.00 g</div>
+        </div>
+      </div>
+      <button class="demo-btn" id="incidentBtn">▶ Simulate driver event</button>
+    </div>
+    <div class="demo-right">
+      <div class="demo-right-label">Detection &amp; escalation pipeline</div>
+      <div class="trace">
+        <div class="trace-axis">SPEED / TIME</div>
+        <svg viewBox="0 0 300 96" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline id="traceLine" fill="none" stroke="#c94a2b" stroke-width="2" points=""/>
+        </svg>
+      </div>
+      <div class="pipe" id="pipe">
+        <div class="pipe-step alert" data-at="0"><div class="pipe-tick">!</div><div class="pipe-text">Telematics sensor spike detected (−0.82g)</div><div class="pipe-time">40ms</div></div>
+        <div class="pipe-step" data-at="1"><div class="pipe-tick">✓</div><div class="pipe-text">Event classified — Harsh Braking</div><div class="pipe-time">120ms</div></div>
+        <div class="pipe-step" data-at="2"><div class="pipe-tick">✓</div><div class="pipe-text">Risk alert raised on fleet dashboard</div><div class="pipe-time">0.3s</div></div>
+        <div class="pipe-step" data-at="3"><div class="pipe-tick">✓</div><div class="pipe-text">Fleet manager notified — SMS + push</div><div class="pipe-time">0.6s</div></div>
+        <div class="pipe-step" data-at="4"><div class="pipe-tick">✓</div><div class="pipe-text">Logged to compliance report</div><div class="pipe-time">0.9s</div></div>
+      </div>
+      <div class="pipe-result" id="pipeResult">✓ Incident captured &amp; escalated in under 1 second</div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS GAUGES -->
+<section class="section fade-up">
+  <div class="section-label">What we measured</div>
+  <div class="gauge-grid">
+    <div class="gauge-cell">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="54"/><circle class="gauge-prog" cx="60" cy="60" r="54" data-pct="40"/></svg>
+        <div class="gauge-center"><div class="gauge-num" data-count="40"><span class="unit">%</span></div></div>
+      </div>
+      <div class="gauge-name">Adoption Growth</div>
+      <div class="gauge-desc">Post-launch adoption lift, driven by a rebuilt onboarding flow and sharper feature discovery.</div>
+    </div>
+    <div class="gauge-cell">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="54"/><circle class="gauge-prog" cx="60" cy="60" r="54" data-pct="80"/></svg>
+        <div class="gauge-center"><div class="gauge-num" data-count="80"><span class="unit">%</span></div></div>
+      </div>
+      <div class="gauge-name">WAU / MAU</div>
+      <div class="gauge-desc">Weekly-to-monthly active ratio, held at 80% against a 40–60% B2B benchmark.</div>
+    </div>
+    <div class="gauge-cell">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="54"/><circle class="gauge-prog" cx="60" cy="60" r="54" data-pct="80"/></svg>
+        <div class="gauge-center"><div class="gauge-num" data-count="80"><span class="unit">%</span></div></div>
+      </div>
+      <div class="gauge-name">90-Day Retention</div>
+      <div class="gauge-desc">Enterprise users still active 90 days after activation — a core signal for ARR health.</div>
+    </div>
+    <div class="gauge-cell">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="54"/><circle class="gauge-prog" cx="60" cy="60" r="54" data-pct="52"/></svg>
+        <div class="gauge-center"><div class="gauge-num" data-count="52"><span class="unit">+</span></div></div>
+      </div>
+      <div class="gauge-name">NPS Score</div>
+      <div class="gauge-desc">Net Promoter above 50 for safety IoT, where the category average sits near 32.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE TIMELINE -->
+<section class="section fade-up">
+  <div class="section-label">The route we drove</div>
+  <div class="route" id="routeTimeline">
+    <div class="road"></div>
+    <div class="road-progress" id="roadProgress"></div>
+    <div class="road-car" id="roadCar"></div>
+
+    <div class="route-item">
+      <div class="route-date">Aug 2021 <span class="km">· km 0</span></div>
+      <h4>Joined as Product Manager — a product with untapped potential</h4>
+      <p>A core driver-monitoring product with 32 enterprise clients, but low activation and no clear roadmap. First 90 days were all listening: 20+ client interviews, competitor analysis, and a KPI baseline.</p>
+      <span class="route-badge">Discovery sprint</span>
+    </div>
+    <div class="route-item">
+      <div class="route-date">Q1 2022 <span class="km">· km 1</span></div>
+      <h4>Rebuilt onboarding — activation doubled in three months</h4>
+      <p>Data showed 60% of new enterprise users never reached the "aha" moment. I redesigned onboarding with progressive disclosure, contextual prompts, and a client-success checklist.</p>
+      <span class="route-badge win">2× activation rate</span>
+    </div>
+    <div class="route-item">
+      <div class="route-date">Q3 2022 <span class="km">· km 2</span></div>
+      <h4>Shipped 24 new features — all on time, all on spec</h4>
+      <p>Led agile delivery across safety alerts, reporting, compliance dashboards, and mobile. Introduced fortnightly stakeholder reviews and a rolling 6-week roadmap to keep engineering and clients aligned.</p>
+      <span class="route-badge win">24 features shipped</span>
+    </div>
+    <div class="route-item">
+      <div class="route-date">2023 <span class="km">· km 3</span></div>
+      <h4>Spearheaded Process Safety — a new $100M+ product line</h4>
+      <p>Spotted an adjacent opportunity in industrial process-safety monitoring. Led the market sizing, business case, MVP scope, and v1 launch — opening a new TAM without disrupting the core product.</p>
+      <span class="route-badge win">$100M+ TAM unlocked</span>
+    </div>
+    <div class="route-item dest">
+      <div class="dest-pin">
+        <svg width="26" height="34" viewBox="0 0 26 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 0C5.82 0 0 5.82 0 13c0 9.1 11.3 19.7 12.16 20.49a1.25 1.25 0 0 0 1.68 0C14.7 32.7 26 22.1 26 13 26 5.82 20.18 0 13 0Z" fill="#c94a2b"/>
+          <circle cx="13" cy="13" r="5" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="route-date">2024–25 <span class="km">· destination</span></div>
+      <h4>$2M+ ARR pipeline — feature-led upsell and expansion</h4>
+      <p>Partnered with sales to surface upsell opportunities across the client base, shipping targeted enterprise features that unlocked expansion revenue and fed a $2M+ ARR pipeline.</p>
+      <span class="route-badge win">$2M+ ARR pipeline</span>
+    </div>
+  </div>
+</section>
+
+<!-- LESSONS -->
+<section class="section fade-up">
+  <div class="section-label">What I learned</div>
+  <div class="lessons-grid">
+    <div class="lesson">
+      <div class="lesson-num">Lesson 01</div>
+      <div class="lesson-title">Safety-critical products demand a different prioritisation</div>
+      <div class="lesson-body">In consumer products a bad UX is annoying. In safety IoT it can mean a missed alert on a real incident. I learned to triage ruthlessly — stability and reliability always above feature velocity.</div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-num">Lesson 02</div>
+      <div class="lesson-title">Enterprise clients are partners, not just users</div>
+      <div class="lesson-body">Monthly steering meetings with 32 enterprise clients taught me the best decisions come from genuine partnership, not surveys. Co-designing features with clients produced the highest adoption.</div>
+    </div>
+    <div class="lesson">
+      <div class="lesson-num">Lesson 03</div>
+      <div class="lesson-title">Market expansion needs a business case, not instinct</div>
+      <div class="lesson-body">The Process Safety launch meant convincing leadership to invest in an adjacent market. I built a financial model, TAM analysis, and competitive landscape before a single line of code was written.</div>
+    </div>
+  </div>
+</section>
+
+<div class="proj-footer">
+  <span class="proj-footer-copy">Vikas Vasudevan · Safety Connect · 2021–2025</span>
+  <a href="index.html">← Back to all work</a>
+</div>
+
+<script>
+  /* ── custom cursor ── */
+  const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a, button').forEach(el=>{el.addEventListener('mouseenter',()=>cr.classList.add('h'));el.addEventListener('mouseleave',()=>cr.classList.remove('h'));});
+
+  /* ── reveal on scroll ── */
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  /* ── ops clock ── */
+  const opsClock=document.getElementById('opsClock');
+  function tickClock(){ const d=new Date(); opsClock.textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':'); }
+  tickClock(); setInterval(tickClock,1000);
+
+  /* ── count-up helper ── */
+  function countUp(el,target,suffix,dur){
+    const start=performance.now();
+    (function f(now){
+      const p=Math.min((now-start)/dur,1);
+      const eased=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*eased)+(suffix||'');
+      if(p<1) requestAnimationFrame(f);
+    })(start);
+  }
+
+  /* ── hero stat counters + console kpis ── */
+  let heroDone=false;
+  const heroObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting && !heroDone){
+      heroDone=true;
+      document.querySelectorAll('.h-stat-val[data-count]').forEach(el=>countUp(el,+el.dataset.count,el.dataset.suffix||'',1400));
+      countUp(document.getElementById('ckVehicles'),50241,'',1800);
+      countUp(document.getElementById('ckActive'),1284,'',1800);
+    }});
+  },{threshold:0.3});
+  heroObs.observe(document.querySelector('.hero-left'));
+
+  /* ── live incident feed ── */
+  const feed=document.getElementById('feed');
+  const events=[
+    {t:'Harsh braking · TN-4471', s:'amber'},
+    {t:'Overspeed 92 km/h · MH-2210', s:'red'},
+    {t:'Route completed · KA-1198', s:'green'},
+    {t:'Fatigue alert · DL-7765', s:'red'},
+    {t:'Geofence exit · GJ-3392', s:'amber'},
+    {t:'Harsh cornering · RJ-8841', s:'amber'},
+    {t:'All clear · Sector 4', s:'green'},
+    {t:'Seatbelt check passed · TN-5532', s:'green'},
+    {t:'Idle > 10 min · MH-8830', s:'amber'},
+  ];
+  function nowStr(){ const d=new Date(); return [d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,'0')).join(':'); }
+  function pushEvent(ev){
+    const row=document.createElement('div'); row.className='feed-row';
+    row.innerHTML=`<span class="feed-time">${nowStr()}</span><span class="feed-label">${ev.t}</span><span class="feed-sev ${ev.s}"></span>`;
+    feed.prepend(row);
+    while(feed.children.length>4) feed.removeChild(feed.lastChild);
+  }
+  // seed
+  pushEvent(events[6]); pushEvent(events[0]); pushEvent(events[2]);
+  setInterval(()=>{ pushEvent(events[Math.floor(Math.random()*events.length)]); }, 2600);
+
+  /* ── cosmetic map zoom ── */
+  const mapSvg=document.querySelector('.map-wrap > svg');
+  const zoomBtns=document.querySelectorAll('.map-zoom button');
+  let mapZoom=1;
+  if(mapSvg){ mapSvg.style.transformOrigin='52% 56%'; mapSvg.style.transition='transform 0.4s ease'; }
+  zoomBtns[0]?.addEventListener('click',()=>{ mapZoom=Math.min(mapZoom+0.25,2); mapSvg.style.transform='scale('+mapZoom+')'; });
+  zoomBtns[1]?.addEventListener('click',()=>{ mapZoom=Math.max(mapZoom-0.25,1); mapSvg.style.transform='scale('+mapZoom+')'; });
+
+  /* ── metric gauges ── */
+  const C=2*Math.PI*54;
+  let gaugesDone=false;
+  const gaugeObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting && !gaugesDone){
+      gaugesDone=true;
+      document.querySelectorAll('.gauge-prog').forEach(c=>{
+        const pct=+c.dataset.pct;
+        c.style.strokeDashoffset=C*(1-pct/100);
+      });
+      document.querySelectorAll('.gauge-num[data-count]').forEach(el=>{
+        const unit=el.querySelector('.unit'); const u=unit?unit.outerHTML:'';
+        const target=+el.dataset.count; const start=performance.now();
+        (function f(now){ const p=Math.min((now-start)/1400,1); const eased=1-Math.pow(1-p,3);
+          el.innerHTML=Math.round(target*eased)+u; if(p<1) requestAnimationFrame(f); })(start);
+      });
+    }});
+  },{threshold:0.4});
+  gaugeObs.observe(document.querySelector('.gauge-grid'));
+
+  /* ── route scroll progress ── */
+  const route=document.getElementById('routeTimeline');
+  const roadProgress=document.getElementById('roadProgress');
+  const roadCar=document.getElementById('roadCar');
+  const roadEl=document.querySelector('.road');
+  const destPin=document.querySelector('.dest-pin');
+  const routeItems=Array.from(document.querySelectorAll('.route-item'));
+  // center of a stop marker, measured from the top of .route
+  function markerY(item){
+    const rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||16;
+    return item.offsetTop + rem*2 + 8; // .route-item::before { top:2rem; height:16px }
+  }
+  function layoutRoute(){
+    if(!route||!routeItems.length) return;
+    const startY=markerY(routeItems[0]);
+    const endY=markerY(routeItems[routeItems.length-1]);
+    [roadEl,roadProgress].forEach(el=>{ if(el){ el.style.top=startY+'px'; el.style.bottom='auto'; } });
+    if(roadEl) roadEl.style.height=(endY-startY)+'px';
+    if(destPin){ const rem=parseFloat(getComputedStyle(document.documentElement).fontSize)||16; destPin.style.top=(rem*2+8-34)+'px'; } // pin tip (svg h=34) lands on the line
+    return {startY,endY};
+  }
+  function updateRoute(){
+    if(!route||!roadProgress||!roadCar) return;
+    const span=layoutRoute(); if(!span) return;
+    const {startY,endY}=span;
+    const r=route.getBoundingClientRect();
+    const vh=window.innerHeight;
+    // progress depends only on how far THIS section has scrolled past the
+    // viewport's center line — mapped from the first stop to the destination.
+    const line=vh*0.5 - r.top;          // viewport center, in .route coords
+    let p=(line-startY)/(endY-startY);
+    p=Math.max(0,Math.min(1,p));
+    const y=startY+(endY-startY)*p;
+    roadProgress.style.height=(y-startY)+'px';
+    roadCar.style.top=y+'px';
+    roadCar.style.opacity=(p>=0.985)?'0':'1';   // no blue dot sitting on the destination pin
+    routeItems.forEach(it=>{ if(markerY(it) <= line) it.classList.add('v'); });
+  }
+  window.addEventListener('scroll',updateRoute,{passive:true});
+  window.addEventListener('resize',updateRoute);
+  window.addEventListener('load',updateRoute);
+  updateRoute();
+
+  /* ── incident demo ── */
+  const incidentBtn=document.getElementById('incidentBtn');
+  const needle=document.getElementById('needle');
+  const speedoArc=document.getElementById('speedoArc');
+  const speedVal=document.getElementById('speedVal');
+  const gfill=document.getElementById('gfill');
+  const gval=document.getElementById('gval');
+  const traceLine=document.getElementById('traceLine');
+  const pipeSteps=Array.from(document.querySelectorAll('#pipe .pipe-step'));
+  const pipeResult=document.getElementById('pipeResult');
+  const ARC=251.3, MAXSPEED=120;
+  let demoRunning=false;
+
+  function setSpeed(s){
+    speedVal.textContent=Math.round(s);
+    const frac=Math.max(0,Math.min(s/MAXSPEED,1));
+    const theta=Math.PI*frac;            // 0 = pointing left (0 km/h), PI = pointing right (max)
+    const x=100-80*Math.cos(theta);
+    const y=100-80*Math.sin(theta);
+    needle.setAttribute('x2',x.toFixed(2));
+    needle.setAttribute('y2',y.toFixed(2));
+    speedoArc.style.strokeDashoffset=ARC*(1-frac);
+  }
+  function setG(g){
+    const max=1.0; const pct=Math.min(Math.abs(g)/max,1)*100;
+    gfill.style.height=pct+'%';
+    gval.textContent=(g<=0?'−':'')+Math.abs(g).toFixed(2)+' g';
+  }
+
+  function runIncident(){
+    if(demoRunning) return;
+    demoRunning=true;
+    incidentBtn.disabled=true; incidentBtn.textContent='● Monitoring…';
+    pipeSteps.forEach(s=>s.classList.remove('active'));
+    pipeResult.classList.remove('show');
+
+    const cruise=92, low=8;
+    const samples=[]; const maxSamples=90;
+    const cruiseFrames=36, brakeFrames=26, totalFrames=cruiseFrames+brakeFrames+14;
+    let frame=0; let braked=false;
+
+    function drawTrace(){
+      const n=samples.length; if(!n) return;
+      const pts=samples.map((s,i)=>{ const x=(i/(maxSamples-1))*300; const y=96-(s/MAXSPEED)*88-4; return x.toFixed(1)+','+y.toFixed(1); }).join(' ');
+      traceLine.setAttribute('points',pts);
+    }
+
+    function step(){
+      let speed, g=0;
+      if(frame<cruiseFrames){
+        speed=cruise+Math.sin(frame*0.6)*2.5;     // cruising with noise
+        g=-(Math.sin(frame*0.6)*0.04);
+      } else if(frame<cruiseFrames+brakeFrames){
+        const bp=(frame-cruiseFrames)/brakeFrames; // 0..1
+        const eased=1-Math.pow(1-bp,2);
+        speed=cruise-(cruise-low)*eased;
+        g=-(0.2+0.62*Math.sin(bp*Math.PI));        // peaks mid-brake ~ -0.82g
+        if(!braked && bp>0.15){ braked=true; firePipeline(); }
+      } else {
+        speed=low+Math.sin(frame*0.5)*1.5;
+        g=-(Math.sin(frame*0.5)*0.03);
+      }
+      setSpeed(Math.max(0,speed));
+      setG(g);
+      samples.push(Math.max(0,speed)); if(samples.length>maxSamples) samples.shift();
+      drawTrace();
+      frame++;
+      if(frame<=totalFrames) requestAnimationFrame(step);
+      else { demoRunning=false; incidentBtn.disabled=false; incidentBtn.textContent='↻ Simulate again'; setG(0); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function firePipeline(){
+    const times=[0,200,500,800,1100];
+    pipeSteps.forEach((s,i)=>setTimeout(()=>s.classList.add('active'),times[i]));
+    setTimeout(()=>pipeResult.classList.add('show'),1450);
+  }
+
+  setSpeed(0); setG(0);
+  if(incidentBtn) incidentBtn.addEventListener('click',runIncident);
+</script>
+</body>
+</html>

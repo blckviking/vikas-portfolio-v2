@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Vikas Vasudevan</title>
+
+<meta name="description" content="Writing on product management, AI/LLM products, and building 0→1 by Vikas Vasudevan.">
+<meta name="author" content="Vikas Vasudevan">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://vikasvasudevan.in/blog.html">
+<meta name="theme-color" content="#c94a2b">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vikas Vasudevan">
+<meta property="og:title" content="Blog — Vikas Vasudevan">
+<meta property="og:description" content="Writing on product management, AI/LLM products, and building 0→1.">
+<meta property="og:url" content="https://vikasvasudevan.in/blog.html">
+<meta property="og:image" content="https://vikasvasudevan.in/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23c94a2b'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23f5f2eb'%3EV%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f2eb;
+    --paper-warm: #ede9de;
+    --accent: #c94a2b;
+    --accent-muted: #e8c4b8;
+    --gold: #b8962e;
+    --text-muted: #6b6560;
+    --border: rgba(15,14,12,0.12);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Instrument Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    cursor: none;
+  }
+
+  .cursor-dot {
+    width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%;
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%); transition: all 0.15s ease; opacity: 0.6;
+  }
+  .cursor-ring.hovered { transform: translate(-50%, -50%) scale(1.8); opacity: 0.3; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--paper); border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 700;
+    color: var(--ink); text-decoration: none; letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8125rem; font-family: var(--mono); color: var(--text-muted);
+    text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  .blog-wrap { max-width: 1100px; margin: 0 auto; padding: 9rem 3rem 5rem; }
+
+  .blog-head { margin-bottom: 4rem; }
+  .blog-eyebrow {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em;
+    color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 1rem;
+  }
+  .blog-title {
+    font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  }
+  .blog-title em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .blog-subtitle {
+    font-family: var(--serif); font-style: italic; font-size: 1.25rem;
+    font-weight: 300; color: var(--text-muted); margin-top: 1.25rem; max-width: 560px;
+  }
+
+  .posts-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+  }
+
+  .post-card {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border); background: var(--paper-warm);
+    text-decoration: none; color: inherit;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    overflow: hidden;
+  }
+  .post-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px -30px rgba(15,14,12,0.5);
+    border-color: rgba(15,14,12,0.25);
+  }
+  .post-cover { height: 200px; position: relative; overflow: hidden; }
+  .post-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .post-cover-fallback {
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(120% 120% at 0% 0%, rgba(201,74,43,0.22), transparent 55%),
+      radial-gradient(120% 120% at 100% 100%, rgba(184,150,46,0.20), transparent 55%),
+      var(--ink);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .post-cover-fallback span {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 3.5rem; color: var(--paper); opacity: 0.9;
+  }
+  .post-body { padding: 1.75rem; display: flex; flex-direction: column; flex: 1; }
+  .post-meta {
+    display: flex; gap: 1rem; align-items: center;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem;
+  }
+  .post-meta .tag { color: var(--accent); }
+  .post-card-title {
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 700;
+    line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 0.75rem;
+  }
+  .post-card-desc { font-size: 0.9rem; color: var(--text-muted); flex: 1; }
+  .post-readmore {
+    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.75rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .post-card:hover .post-readmore { color: var(--accent); }
+
+  .blog-empty {
+    border: 1px dashed var(--border); padding: 3rem; text-align: center;
+    color: var(--text-muted); font-family: var(--mono); font-size: 0.85rem;
+  }
+
+  footer {
+    background: var(--ink); border-top: 1px solid rgba(245,242,235,0.1);
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
+    color: rgba(245,242,235,0.3); text-transform: uppercase;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(245,242,235,0.4);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .blog-wrap { padding: 7rem 1.5rem 3rem; }
+    .posts-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">VV.</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#projects">Work</a></li>
+    <li><a href="index.html#consulting">Consulting</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="blog-wrap">
+  <header class="blog-head">
+    <span class="blog-eyebrow">Journal</span>
+    <h1 class="blog-title">Writing &amp; <em>notes</em></h1>
+    <p class="blog-subtitle">Error 404 and other things you can blame me for</p>
+  </header>
+
+  <div class="posts-grid" id="postsGrid"></div>
+</main>
+
+<footer>
+  <div class="footer-copy">© 2026 Vikas Vasudevan — Senior Product Manager · Mumbai</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#projects">Work</a>
+    <a href="mailto:vikas.vasudevan29@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/vikas-vasudevan-757705153/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script src="blog-posts.js"></script>
+<script>
+  // Custom cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso || '';
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function renderPosts() {
+    const grid = document.getElementById('postsGrid');
+    const posts = (typeof BLOG_POSTS !== 'undefined' && Array.isArray(BLOG_POSTS)) ? BLOG_POSTS : [];
+
+    if (!posts.length) {
+      grid.innerHTML = '<div class="blog-empty">No posts yet — add one in blog-posts.js</div>';
+      return;
+    }
+
+    grid.innerHTML = posts.map(p => {
+      const cover = p.cover
+        ? `<img src="${escapeHtml(p.cover)}" alt="${escapeHtml(p.title)}">`
+        : `<div class="post-cover-fallback"><span>${escapeHtml((p.title || 'V').trim().charAt(0))}</span></div>`;
+      const meta = [
+        p.tag ? `<span class="tag">${escapeHtml(p.tag)}</span>` : '',
+        p.date ? `<span>${escapeHtml(formatDate(p.date))}</span>` : '',
+        p.readTime ? `<span>${escapeHtml(p.readTime)}</span>` : '',
+      ].filter(Boolean).join('');
+
+      return `
+        <a class="post-card" href="post.html?slug=${encodeURIComponent(p.slug)}">
+          <div class="post-cover">${cover}</div>
+          <div class="post-body">
+            <div class="post-meta">${meta}</div>
+            <h2 class="post-card-title">${escapeHtml(p.title)}</h2>
+            <p class="post-card-desc">${escapeHtml(p.description)}</p>
+            <div class="post-readmore">Read post <span>↗</span></div>
+          </div>
+        </a>`;
+    }).join('');
+
+    // hover cursor for freshly rendered cards
+    document.querySelectorAll('a, button, .post-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+    });
+  }
+
+  renderPosts();
+</script>
+</body>
+</html>

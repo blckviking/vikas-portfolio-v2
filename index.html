@@ -737,10 +737,13 @@
   }
   .consulting-inner {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 6rem;
-    align-items: start;
-    position: relative; z-index: 1;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1180px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
   .consulting-left .section-num { color: rgba(245,242,235,0.35); }
   .consulting-headline {
@@ -761,97 +764,125 @@
     font-size: 1rem;
     line-height: 1.75;
     color: rgba(245,242,235,0.6);
-    max-width: 320px;
   }
-  .consult-cards {
+
+  .consulting-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Jigsaw puzzle */
+  .consult-puzzle {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+  .consult-puzzle svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .puzzle-path {
+    fill: #161412;
+    stroke: rgba(245,242,235,0.16);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: fill 0.35s ease, stroke 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: none;
+  }
+  .puzzle-path:nth-child(1) { fill: #151310; transform-origin: 25% 25%; }
+  .puzzle-path:nth-child(2) { fill: #1a1916; transform-origin: 75% 25%; }
+  .puzzle-path:nth-child(3) { fill: #131210; transform-origin: 25% 75%; }
+  .puzzle-path:nth-child(4) { fill: #1c1b18; transform-origin: 75% 75%; }
+  .consult-puzzle:hover .puzzle-path:nth-child(1) { transform: translate(3px, 3px); fill: #1e1c19; stroke: rgba(201,74,43,0.35); }
+  .consult-puzzle:hover .puzzle-path:nth-child(2) { transform: translate(-3px, 3px); fill: #222019; stroke: rgba(201,74,43,0.35); }
+  .consult-puzzle:hover .puzzle-path:nth-child(3) { transform: translate(3px, -3px); fill: #1a1816; stroke: rgba(201,74,43,0.35); }
+  .consult-puzzle:hover .puzzle-path:nth-child(4) { transform: translate(-3px, -3px); fill: #242220; stroke: rgba(201,74,43,0.35); }
+  .puzzle-path:hover {
+    fill: #2a2824 !important;
+    stroke: rgba(201,74,43,0.65) !important;
+  }
+  .puzzle-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    width: 38%;
+    height: 38%;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--accent);
+    box-shadow:
+      0 0 0 5px var(--ink),
+      0 0 0 6px rgba(245,242,235,0.08),
+      0 8px 32px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.35rem;
+    pointer-events: none;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .consult-puzzle:hover .puzzle-core {
+    border-color: var(--gold);
+    box-shadow:
+      0 0 0 5px var(--ink),
+      0 0 0 6px rgba(201,74,43,0.2),
+      0 0 24px rgba(201,74,43,0.25),
+      0 8px 32px rgba(0,0,0,0.5);
+  }
+  .puzzle-core-line {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(0.78rem, 1.9vw, 0.95rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--paper);
+  }
+  .puzzle-core-line.em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-muted);
+    font-size: clamp(0.88rem, 2.1vw, 1.05rem);
+  }
+  .puzzle-labels {
+    position: absolute;
+    inset: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: rgba(245,242,235,0.1);
-    border: 1px solid rgba(245,242,235,0.1);
+    grid-template-rows: 1fr 1fr;
+    pointer-events: none;
+    z-index: 4;
   }
-  .consult-card {
-    background: var(--ink);
-    padding: 2rem;
-    transition: background 0.25s;
-    display: flex; flex-direction: column; gap: 0.75rem;
-  }
-  .consult-card:hover { background: #1a1916; }
-  .consult-card--cta {
-    background: var(--accent);
-    display: flex; flex-direction: column; gap: 1rem;
-  }
-  .consult-card--cta:hover { background: #b83e22; }
-  .consult-card-icon {
-    color: var(--accent-muted);
-    margin-bottom: 0.5rem;
-  }
-  .consult-card--cta .consult-card-icon { display: none; }
-  .consult-card-title {
+  .puzzle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     font-family: var(--serif);
-    font-size: 1.125rem;
-    font-weight: 700;
+    font-size: clamp(0.72rem, 1.45vw, 0.88rem);
+    font-weight: 600;
+    line-height: 1.35;
     letter-spacing: -0.01em;
-    color: var(--paper);
+    color: rgba(245,242,235,0.9);
   }
-  .consult-card-desc {
-    font-size: 0.875rem;
-    line-height: 1.7;
-    color: rgba(245,242,235,0.55);
-    flex: 1;
-  }
-  .consult-card-tags {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-    margin-top: 0.25rem;
-  }
-  .consult-card-tags span {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.6rem;
-    border: 1px solid rgba(245,242,235,0.2);
-    color: rgba(245,242,235,0.5);
-  }
-  .consult-cta-label {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(245,242,235,0.7);
-  }
-  .consult-cta-types {
-    display: flex; flex-direction: column; gap: 0.6rem;
-    flex: 1;
-  }
-  .consult-cta-type {
-    display: flex; align-items: center; gap: 0.75rem;
-    font-size: 0.9375rem;
-    color: var(--paper);
-    font-weight: 500;
-  }
-  .consult-cta-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(245,242,235,0.6);
-    flex-shrink: 0;
-  }
-  .consult-email-link {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    color: var(--paper);
-    text-decoration: none;
-    border-top: 1px solid rgba(245,242,235,0.25);
-    padding-top: 1rem;
-    margin-top: auto;
-    transition: opacity 0.2s;
-  }
-  .consult-email-link:hover { opacity: 0.7; }
+  .puzzle-label--tl { padding: 1.25rem 2.25rem 2.5rem 1.25rem; }
+  .puzzle-label--tr { padding: 1.25rem 1.25rem 2.5rem 2.25rem; }
+  .puzzle-label--bl { padding: 2.5rem 2.25rem 1.25rem 1.25rem; }
+  .puzzle-label--br { padding: 2.5rem 1.25rem 1.25rem 2.25rem; }
 
   @media (max-width: 900px) {
-    .consulting-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .consult-cards { grid-template-columns: 1fr; }
+    .consulting-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+    .consult-puzzle { max-width: 360px; }
   }
 
   @media (max-width: 640px) {
@@ -936,7 +967,7 @@
       <em>Vasudevan.</em>
     </h1>
     <p class="hero-tagline">
-      6+ years driving end-to-end strategy across enterprise IoT, B2B SaaS and AI platforms — from 0→1 launches to 100K+ MAU products. Currently architecting MCP servers and AI-driven onboardings.
+      7+ years driving end-to-end strategy across enterprise IoT, B2B SaaS and AI platforms — from 0→1 launches to 100K+ MAU products. Currently architecting MCP servers and AI-driven onboardings.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View Work</a>
@@ -947,7 +978,7 @@
   <div class="hero-right">
     <div class="hero-stats">
       <div class="stat-item">
-        <div class="stat-num">6+</div>
+        <div class="stat-num">7+</div>
         <div class="stat-label">Years in Product</div>
       </div>
       <div class="stat-item">
@@ -1230,86 +1261,57 @@
 <section class="consulting-section" id="consulting">
   <div class="consulting-bg-text">CONSULT</div>
   <div class="consulting-inner">
+
     <div class="consulting-left fade-up">
       <div class="section-num" style="margin-bottom:1rem;">03</div>
       <h2 class="consulting-headline">
         Got a product<br>
         <em>problem?</em>
       </h2>
-      <p class="consulting-sub">I take on a small number of consulting engagements with founders and teams who need sharp product thinking without the overhead of a full-time hire.</p>
+      <p class="consulting-sub">I bring a rare combination: formal engineering training (M.Sc. Aerospace Propulsion, Cranfield) paired with seven years of hands-on product delivery across safety-critical IoT, B2B/B2C platforms and now AI infrastructure. I don't consult from theory, I've built the dashboards, run the beta programmes, negotiated the vendor contracts and shipped the features myself. I've led 32-engineer teams without direct authority and built and established teams for various organisations, so I know how to drive alignment through clarity, not hierarchy. And having worked in regulated, high-stakes environments like aviation and industrial safety, I bring a naturally rigorous, risk-aware lens to any problem I take on.</p>
       <a href="#contact" class="btn-primary" style="margin-top:2rem; display:inline-block;">Start a conversation →</a>
     </div>
+
     <div class="consulting-right fade-up">
-      <div class="consult-cards">
+      <div class="consult-puzzle" aria-label="Four consulting capabilities that combine into a growth design approach">
 
-        <div class="consult-card">
-          <div class="consult-card-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M8 14 L12 18 L20 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="consult-card-title">0→1 Product Builds</div>
-          <div class="consult-card-desc">You have an idea or an early signal. I help you go from whiteboard to shipped — with an MVP scope, discovery sprint, and build roadmap that doesn't waste your runway.</div>
-          <div class="consult-card-tags">
-            <span>Discovery</span><span>MVP Scoping</span><span>Roadmapping</span>
-          </div>
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Top-left: tab on right + tab on bottom -->
+          <path class="puzzle-path" d="
+            M 4 4 H 96
+            V 38 C 96 38 112 44 112 50 C 112 56 96 62 96 62
+            V 96 H 62 C 62 96 56 112 50 112 C 44 112 38 96 38 96
+            H 4 V 4 Z"/>
+          <!-- Top-right: socket on left + tab on bottom -->
+          <path class="puzzle-path" d="
+            M 104 4 H 196 V 96 H 162 C 162 96 156 112 150 112 C 144 112 138 96 138 96
+            H 104 V 62 C 104 62 88 56 88 50 C 88 44 104 38 104 38 V 4 Z"/>
+          <!-- Bottom-left: tab on right + socket on top -->
+          <path class="puzzle-path" d="
+            M 4 104 H 38 C 38 104 44 88 50 88 C 56 88 62 104 62 104
+            H 96 V 138 C 96 138 112 144 112 150 C 112 156 96 162 96 162
+            V 196 H 4 V 104 Z"/>
+          <!-- Bottom-right: socket on left + socket on top -->
+          <path class="puzzle-path" d="
+            M 104 104 H 138 C 138 104 144 88 150 88 C 156 88 162 104 162 104
+            H 196 V 196 H 104 V 162 C 104 162 88 156 88 150 C 88 144 104 138 104 138 V 104 Z"/>
+        </svg>
+
+        <div class="puzzle-core">
+          <span class="puzzle-core-line">I Design</span>
+          <span class="puzzle-core-line em">For Growth</span>
         </div>
 
-        <div class="consult-card">
-          <div class="consult-card-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="6" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M8 14 L11 11 L14 13 L17 9 L21 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="consult-card-title">New Vertical Launch</div>
-          <div class="consult-card-desc">You have an existing product but want to expand into a new market or segment. I've done it — from road safety into industrial process safety at $100M+ TAM. I know how to validate, size, and sequence.</div>
-          <div class="consult-card-tags">
-            <span>Market Sizing</span><span>GTM Strategy</span><span>Expansion</span>
-          </div>
-        </div>
-
-        <div class="consult-card">
-          <div class="consult-card-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 22 C6 22 8 14 14 14 C20 14 22 6 22 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="22" cy="6" r="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="6" cy="22" r="2.5" stroke="currentColor" stroke-width="1.2"/>
-            </svg>
-          </div>
-          <div class="consult-card-title">AI Integration Strategy</div>
-          <div class="consult-card-desc">I've built MCP servers and LLM-powered onboarding in production. If you're trying to work out where AI fits in your product — and how to ship it without burning engineering cycles — let's talk.</div>
-          <div class="consult-card-tags">
-            <span>LLM / AI</span><span>MCP Servers</span><span>Automation</span>
-          </div>
-        </div>
-
-        <div class="consult-card consult-card--cta">
-          <div class="consult-cta-label">OPEN TO</div>
-          <div class="consult-cta-types">
-            <div class="consult-cta-type">
-              <span class="consult-cta-dot"></span>
-              <span>Fractional PM engagements</span>
-            </div>
-            <div class="consult-cta-type">
-              <span class="consult-cta-dot"></span>
-              <span>Advisory / board roles</span>
-            </div>
-            <div class="consult-cta-type">
-              <span class="consult-cta-dot"></span>
-              <span>1-day product sprints</span>
-            </div>
-            <div class="consult-cta-type">
-              <span class="consult-cta-dot"></span>
-              <span>Seed / Series A startups</span>
-            </div>
-          </div>
-          <a href="mailto:vikas.vasudevan29@gmail.com" class="consult-email-link">vikas.vasudevan29@gmail.com ↗</a>
+        <div class="puzzle-labels">
+          <div class="puzzle-label puzzle-label--tl">Product strategy and roadmapping</div>
+          <div class="puzzle-label puzzle-label--tr">AI productization advisory</div>
+          <div class="puzzle-label puzzle-label--bl">Setting Up the business and its structure</div>
+          <div class="puzzle-label puzzle-label--br">Market and competitive positioning</div>
         </div>
 
       </div>
     </div>
+
   </div>
 </section>
 

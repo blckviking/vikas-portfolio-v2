@@ -44,199 +44,89 @@ const BLOG_POSTS = [
     content: [
       {
         type: "paragraph",
-        text: "Product management advice is filled with frameworks. If you've spent any time in product planning, you've heard of <b>RICE</b>, <b>MoSCoW</b>, or <b>Kano</b>. While these models work well for established enterprises with predictable user bases, they often break down when applied to early stage startups.",
+        text: "Hello fellow Product Managers, developers frustrated with their Product Managers and QA frustrated with the developers. Whoever you are, you have stumbled upon this blog. You may be an experienced professional, someone who did a few courses in Product Management or trying to pivot to it from another tech role, or you are and big shot MBA in something something reading this but you are gonna pretend this whole thing was your idea in the next meeting, it's okay, we won't tell.",
       },
       {
         type: "paragraph",
-        text: "Startups operate under extreme uncertainty, tight cash runways and shifting user expectations. Relying on rigid scoring systems can lead to building the wrong features — fast.",
+        text: "Chances are, you are working for a startup, where most of us get our feet wet in Product Management. There lies the problem, the course you did is not going to help you. Well, not as much as you think they will. It's not their fault, those courses are built with some base assumption. Assumptions like, the teams know what they are doing, there is an established process, a fall back in case of failures, the team lead is not an overworked frustrated individual who can fix anything and your CEO is not some kid who thought they had a dream (Almost forgot, Hi CEO pretending you know what you are doing)",
       },
       {
         type: "paragraph",
-        text: "Here is why traditional prioritization models fall short for startups and how to build a dynamic priority structure that drives actual traction.",
+        text: "One such thing, that the course taught you wrong, or rather won't help you in a startup is product prioritisation. Unlike mature companies that prioritise incremental revenue or retention tweaks, startups are locked in a race against time. No matter what your management thinks, you are not the first to have that idea. With the rise in AI and people who think they can code, someone is bound to catch up and possibly get ahead of you. So in the early stages of a startup, your priority is to capture the market and keep those users with you.",
       },
-      {
-        type: "quote",
-        text: "TL;DR: Traditional models like RICE assume predictable data startups don't have. Forced 2-week sprint cadences prioritize shipping speed over core product quality. Startups need a 4-tier model: 1. Must-Fix → 2. Core Quality → 3. Growth Experiments → 4. Long-Term Scale.",
-      },
-      { type: "heading", text: "The Flaw in Traditional Prioritization Models (RICE, MoSCoW, Kano)" },
       {
         type: "paragraph",
-        text: "Traditional frameworks rely heavily on static inputs, assumptions, or historical data that startups simply do not have.",
+        text: "So, how does a Product Manager prioritise? Ask yourself this:",
       },
       {
         type: "list",
         items: [
-          "<b>RICE (Reach, Impact, Confidence, Effort):</b> Calculates a numerical score based on estimated reach and effort. <i>The startup problem:</i> In the early stages, your \"Confidence\" score is usually a wild guess and calculating \"Reach\" for an unreleased feature is pure speculation.",
-          "<b>MoSCoW (Must-have, Should-have, Could-have, Won't-have):</b> Categorizes features into strict buckets. <i>The startup problem:</i> When every founder/stakeholder feels their vision is critical, almost everything gets labeled a \"Must-have,\" diluting focus.",
-          "<b>Kano Model:</b> Classifies features based on how likely they are to satisfy users. <i>The startup problem:</i> It assumes users know what will delight them, which often isn't the case for novel products.",
-          "<b>ICE (Impact, Confidence, Ease):</b> A simpler relative of RICE that still suffers from heavy subjective bias.",
+          "1. What is the ‘Immediate Business Needs’ (Must-Fix)",
+          "2. What is the Fastest way to help Users (Core User Feedback)",
+          "3. What can we expand into? (Possible Verticals)",
+          "4. How do we set our foundation? (Long-Term Planning)",
         ],
       },
       {
         type: "paragraph",
-        text: "These models assume a level of stability that early-stage companies don't possess. A startup doesn't need to optimize a predictable system; it needs to prove its core hypothesis before running out of money.",
+        text: "So what do each of these mean?",
       },
-      { type: "heading", text: "The Startup Reality: Proving Value to Investors and Users" },
+      { type: "heading", text: "1. What is the ‘Immediate Business Needs’ (Must-Fix)" },
       {
         type: "paragraph",
-        text: "Unlike mature companies that prioritize incremental revenue or retention tweaks, startups are locked in a race against time to prove <b>real, non-negotiable value</b>.",
+        text: "These are your non-negotiable blockers that directly impact your ability to operate or generate revenue. For example, broken payment gateways, severe security vulnerabilities or onboarding crashes. You can identify these with two simple questions:",
       },
       {
         type: "list",
         items: [
-          "<b>To Investors:</b> You must show traction, retention and a clear path to product market fit (PMF). A slick feature roadmap doesn't impress investors if core retention numbers are dropping.",
-          "<b>To Users:</b> You need to solve a specific, painful problem better than the status quo. If the core experience fails, shiny adjacent features won't save the product.",
+          "Can the user do what the Product says it does?",
+          "Can the user do this without any hiccups?",
         ],
       },
       {
         type: "paragraph",
-        text: "Every item on your roadmap must directly serve one of two goals: keeping existing users engaged or proving the viability of your business model.",
+        text: "The hierarchy of the questions is important. For example, you may identify that incorporating a payment gateway will reduce payment processing time to a few seconds. Great, that solved the second question but what if the user was never able to get to the payment portal because a bug prevented them. Hence, always fix the first question then the second.",
       },
-      { type: "heading", text: "Listening to Early Adopters (Without Getting Misled)" },
+      { type: "heading", text: "2. What is the Fastest way to help Users (Core User Feedback)" },
       {
         type: "paragraph",
-        text: "Early adopters are unique. They are more forgiving of bugs, more vocal about missing features, and willing to jump through hoops to use your product. They provide the most critical feedback loop you have — that is, if you know how to read it.",
-      },
-      {
-        type: "paragraph",
-        text: "However, startups often make the mistake of building every feature requested by a vocal minority. Instead of treating early adopter feedback as a feature list, treat it as <b>diagnostic data</b>:",
+        text: "Your product has a core idea followed by secondary ideas. If your app is a fitness app that shows users how to do an exercise, those animations and database is your primary idea. A way for the user to add friends to the app would be a secondary idea built around this. Like an umbrella if you will. So simply ask yourself,",
       },
       {
         type: "list",
         items: [
-          "<b>Look at Behavior, Not Requests:</b> Pay attention to where users get stuck, which workarounds they invent, and which core feature they use daily.",
-          "<b>Identify Pain Patterns:</b> If ten users ask for ten different features, don't build ten things. Look for the underlying frustration driving those requests.",
-          "<b>Protect the Core Experience:</b> Early adopters leave when the main value proposition breaks or doesn't deliver, not when secondary feature requests are delayed.",
-        ],
-      },
-      { type: "heading", text: "Quality over Speed: Why Rushed Updates Backfire" },
-      {
-        type: "paragraph",
-        text: "The common startup advice \"move fast and break things\" is often misunderstood. Moving fast is essential, but releasing low quality updates that degrade your core product destroys trust faster than slow execution ever will.",
-      },
-      { type: "quote", text: "Speed gets users through the door; quality keeps them there." },
-      { type: "paragraph", text: "When you rush updates without maintaining quality:" },
-      {
-        type: "list",
-        items: [
-          "<b>Technical Debt Compounds:</b> Patchwork code slows down future development, making future iterations slower, not faster.",
-          "<b>Feedback Signals Get Noisy:</b> If users bounce because of bugs and poor UX, you won't know whether your concept failed or your execution did.",
-          "<b>User Churn Increases:</b> Early adopters are forgiving of missing features, but persistent instability drives them away permanently. They are often your most vocal critics.",
-        ],
-      },
-      { type: "heading", text: "The Sprint Trap: How Agile Cadence Forces Bad Prioritization" },
-      {
-        type: "paragraph",
-        text: "Most startups default to traditional Agile frameworks, setting up fixed 2 week or 1 month sprint cycles. At first, this feels productive. But as time goes on, a subtle trap emerges: <b>the team feels compelled to show visible output at the end of every single sprint.</b>",
-      },
-      {
-        type: "paragraph",
-        text: "To demonstrate \"progress\" to founders and investors, PMs and developers start shipping for the sake of shipping. Speed is prioritized over depth.",
-      },
-      { type: "paragraph", text: "When you force a new release every few weeks on an early-stage product:" },
-      {
-        type: "list",
-        items: [
-          "<b>Quality gets shaved off at the edges:</b> Edge cases aren't handled, UI polish is skipped and minor bugs accumulate into severe technical debt.",
-          "<b>RICE and MoSCoW fail as shields:</b> PMs use these frameworks merely to rank items to fill the next sprint backlog, rather than evaluating whether those features actively serve the business right now. What if the backlog itself lacks quality — a long list of features to build doesn't mean quality deliverables to the users.",
-          "<b>You mistake velocity for value:</b> Shipping 5 mediocre updates a month feels like moving fast, but if none of them improve retention or solve core pain points, your effective velocity is zero. North Star Metrics (NSM) don't help here — how do you determine which features help the NSM and which deteriorate it when so many are introduced?",
+          "Can I do something to make users perform the primary idea better?",
+          "Can I do something to make users perform the secondary idea better?",
         ],
       },
       {
         type: "paragraph",
-        text: "Instead of using frameworks to feed a relentless sprint cycle, startups need a priority structure that gives the team <b>permission to fix, refine and master the core experience</b> before rushing to build the next shiny object.",
+        text: "For example, in our fitness app’s case giving a better navigation menu to make it easier to search the workouts. Adding an injury and recovery segment as the secondary idea. Remember these come from core user query. How to interpret the user query is another story. Considering 90% of you have stopped reading and the other 10% is asking Claude what this means.",
       },
-      { type: "heading", text: "A Simple 4-Tier Prioritization Structure for Startups" },
+      { type: "heading", text: "3. What can we expand into? (Possible Verticals)" },
       {
         type: "paragraph",
-        text: "Instead of assigning arbitrary numbers or fitting features into rigid enterprise buckets, use a four tiered hierarchy aligned directly with startup survival and growth:",
+        text: "You have built your app, addressing the core business ideas and user needs. Now what? Now you need to think about what we can do to make sure my business stays relevant. It's important to make sure your expansion doesn't alienate your primary user base. For an e-commerce website this would be expanding to other products.",
+      },
+      { type: "heading", text: "4. How do we set our foundation? (Long-Term Planning)" },
+      {
+        type: "paragraph",
+        text: "Congratulations, you have made it to the last step. You have done all the prior steps and made your founders proud. What next? Step 1, try not to get laid off. Step 2, you need to now transition your company from a startup with the above priority method to a functioning organisation with established frameworks. This step is important as it does two things.",
       },
       {
         type: "list",
         items: [
-          "Immediate Business Needs (Must-Fix)",
-          "Major Quality Changes (Core User Feedback)",
-          "Experimental Business Verticals (Usage-Based)",
-          "Long-Term Planning (Vision &amp; Scale)",
-        ],
-      },
-      { type: "heading", text: "1. Immediate Business Needs (Must-Fix)" },
-      {
-        type: "paragraph",
-        text: "These are non-negotiable blockers that directly impact your ability to operate or generate revenue.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>Examples:</b> Broken payment gateways, severe security vulnerabilities, onboarding crashes, or compliance failures.",
-          "<b>Action:</b> Fix immediately. Nothing else on the roadmap takes precedence over a broken funnel or system failure.",
-        ],
-      },
-      { type: "heading", text: "2. Major Quality Changes (Based on Core Feedback)" },
-      {
-        type: "paragraph",
-        text: "Refinements that polish and solidify the core value proposition based on real usage patterns from early adopters.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>Examples:</b> Streamlining a confusing multi-step checkout, improving page load speeds on primary dashboards, or resolving frequent UI bugs in the main workflow.",
-          "<b>Action:</b> Make this the bulk of your engineering cycles. Doubling down on what already works builds retention.",
-        ],
-      },
-      { type: "heading", text: "3. Experimental Business Verticals (Based on Product Utilization)" },
-      {
-        type: "paragraph",
-        text: "Targeted experiments aimed at unlocking new growth or expansion avenues, guided by how users actually interact with your product.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>Examples:</b> Building a light API because power users are manually exporting data, or introducing a lightweight team tier because individual accounts share logins.",
-          "<b>Action:</b> Scope these tightly. Run small, low-effort experiments to test demand before committing to full-scale builds.",
-        ],
-      },
-      { type: "heading", text: "4. Long-Term Planning" },
-      {
-        type: "paragraph",
-        text: "High-level strategic initiatives and infrastructure investments required for future scale.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>Examples:</b> Database migrations, architectural overhauls for massive scale, or broad platform integrations.",
-          "<b>Action:</b> Document and monitor, but allocate minimal immediate resources until your core metrics and product-market fit stabilize.",
-        ],
-      },
-      { type: "heading", text: "Limitations" },
-      { type: "heading", text: "1. The Subjectivity Paradox & The Human Element" },
-      {
-        type: "paragraph",
-        text: "No prioritization framework operates as a purely mechanical engine; it cannot eliminate human judgment. While metric driven issues (e.g., a broken payment flow adding X hours of manual labor) are easy to identify as immediate priorities, <b>usability friction and missing core features often mask themselves as minor inconveniences</b>.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>The Edge Cases:</b> A disorganized menu bar or the absence of a self service refund button might not crash the system, but they quietly erode user trust and drive churn over time.",
-          "<b>The Resolution:</b> The framework is a <b>discussion tool, not a decision-maker</b>. It requires the team to debate, context shift, and translate qualitative friction into customer value. The framework provides the structure, but the team's combined context determines where nuanced tasks belong.",
-        ],
-      },
-      { type: "heading", text: "2. The Horizon Shift: From Survival to Moats (R&D)" },
-      {
-        type: "paragraph",
-        text: "This framework is inherently optimized for early-stage survival, validation and rapid execution. However, once core product market fit (PMF) is achieved and meaningful data begins to flow, the strategic threat profile changes.",
-      },
-      {
-        type: "list",
-        items: [
-          "<b>The Copycat Threat:</b> In startup ecosystems, proven validation attracts established industry players. A dominant competitor with existing distribution can replicate a lean startup's core functionality in weeks.",
-          "<b>The R&amp;D Pivot:</b> To avoid getting priced out or out-distributed, the team must eventually pivot from reactive prioritization (fixing immediate operational pain points) to <b>proactive R&amp;D and moat-building</b> (defensible tech, proprietary data networks, or deep platform integration).",
-          "<b>Framework Boundary:</b> <i>When</i> and <i>how</i> to execute this transition is beyond the scope of a short-term prioritization framework. It relies fundamentally on executive vision, industry experience, and strategic timing.",
+          "We need to eventually stop being a startup",
+          "We need to onboard other teams and they would appreciate frameworks",
         ],
       },
       {
         type: "paragraph",
-        text: "Prioritization for startups isn't an exercise in math or elaborate scoring matrices. It is about maintaining clarity under pressure. By setting aside complex traditional models in favor of a lean, feedback-driven structure, you protect your core user experience, respond faster to real data, and stretch your runway where it counts most.",
+        text: "This is done by establishing long term goals. Move away from weekly or monthly updates to plan, scheduled and announced updates. You can now run A/B tests, have product teams work on each aspect of your business or have internal product teams handling your team segments.",
+      },
+      {
+        type: "paragraph",
+        text: "Please remember, what I mentioned here is an ‘in general’ idea of how to prioritise your work. Your intuition and experience will help you navigate the day to day. I believe in you.",
       },
     ],
   },
